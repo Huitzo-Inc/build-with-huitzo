@@ -1,0 +1,52 @@
+schema_version: 2
+
+pack:
+  name: grounded-reco
+  namespace: reef
+  version: 0.1.0
+  description: "A governed recommendation pack: Python decides, evals guard, the model only explains."
+  author: "Huitzo"
+  visibility: public
+
+# One capability token. It must also appear in policy.allowed_actions below;
+# the manifest cross-checks that a pack can only do what its Policy Card allows.
+permissions:
+  - llm:complete
+
+commands:
+  - name: recommend
+    entry_point: "grounded_reco.commands.recommend:recommend"
+    description: "Pick the best candidate by a deterministic score, justify it with the model, then eval the result before it reaches a user."
+    timeout: 45
+
+services:
+  # A capability requirement, never a model name. The deployment resolves the
+  # "default" profile to a concrete provider/model, so the same pack runs on a
+  # local model or a cloud one with zero code change.
+  llm:
+    required: true
+    requirements:
+      min_context: 8000
+      capabilities:
+        - structured_output
+
+# The Policy Card. This is the governance contract, enforced by the platform,
+# not a comment, not a convention. autonomy=suggest means the pack proposes;
+# a human disposes. Every generation is audited in detail, and this command is
+# named in escalation, so a withheld recommendation goes to a person, not a void.
+policy:
+  autonomy: suggest
+  allowed_actions:
+    - llm:complete
+  data_scope:
+    scope: tenant
+  escalation:
+    requires_human_approval:
+      - recommend
+  audit:
+    level: detailed
+
+metadata:
+  category: "tier-2"
+  keywords: ["recommendation", "governance", "eval", "guardrail", "audit", "policy-card"]
+  icon: "shield-check"

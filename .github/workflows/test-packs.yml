@@ -1,0 +1,29 @@
+name: test-packs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Test every pack against the published huitzo-sdk
+        run: |
+          set -e
+          shopt -s nullglob
+          found=0
+          for d in projects/*/pack; do
+            if [ -f "$d/pyproject.toml" ]; then
+              found=1
+              echo "::group::$d"
+              (cd "$d" && pip install -e ".[dev]" && pytest -q)
+              echo "::endgroup::"
+            fi
+          done
+          if [ "$found" = "0" ]; then echo "No packs found"; exit 1; fi

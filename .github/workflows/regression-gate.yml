@@ -1,0 +1,24 @@
+name: regression-gate
+
+# One offline test per bug class an end-to-end sweep found and fixed. The rule:
+# no exercise ships unless it stays green here, so a fixed bug class can never
+# quietly return through a new or edited pack, dashboard, or client. Pure static
+# analysis — no network, no Hub.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install the gate's only dependencies
+        run: pip install pytest pyyaml
+      - name: Run the regression gate
+        run: pytest tests/test_regression_gate.py -v

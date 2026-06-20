@@ -1,0 +1,28 @@
+schema_version: 1
+
+# A Dashboard is distributed and governed like a pack, but it runs in the browser
+# inside Hub and consumes pack commands. It declares which packs it needs; Hub uses
+# that to show "required packs" on the dashboard's Explore page.
+dashboard:
+  name: first-dashboard
+  namespace: reef
+  version: 0.1.1
+  description: "A first Huitzo dashboard: a country macro snapshot powered by the macro-snapshot pack."
+  visibility: private
+  category: analytics
+  icon: "bar-chart"
+
+# The one pack this dashboard calls. The dashboard shares no code with it; it agrees
+# on the command id (@reef/macro-snapshot/country-snapshot) and the result shape.
+pack_dependencies:
+  - scope: "@reef"
+    name: macro-snapshot
+    version: "*"
+    required: true
+
+# Built by `huitzo dashboard build` (which runs `npm run build`) into dist/main.js,
+# the single ES module that exports mount() / unmount().
+build:
+  framework: react
+  entry_point: main.js
+  min_sdk_version: "4.0.0"

@@ -1,0 +1,23 @@
+name: i18n
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  staleness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Check Spanish is in sync with English
+        run: python scripts/check_i18n_staleness.py
+
+  # When English changes and Spanish goes stale, the job above fails. A separate,
+  # secret-gated workflow then drafts the Spanish update with a model and opens a
+  # PR for human review (English stays the single source of truth). The drafting
+  # workflow is intentionally not wired here because it needs an API key secret.
+  # See .translation/README.md for the full design.

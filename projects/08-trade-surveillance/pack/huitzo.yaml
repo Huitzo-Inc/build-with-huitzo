@@ -1,0 +1,53 @@
+schema_version: 2
+
+pack:
+  name: trade-surveillance
+  namespace: reef
+  version: 0.1.0
+  description: "A governed market-abuse surveillance pack: Python detects and decides, an eval guards, the model only narrates the alert."
+  author: "Huitzo"
+  visibility: public
+
+# One capability token. It must also appear in policy.allowed_actions below;
+# the manifest cross-checks that a pack can only do what its Policy Card allows.
+permissions:
+  - llm:complete
+
+commands:
+  - name: screen-trade
+    entry_point: "trade_surveillance.commands.screen_trade:screen_trade"
+    description: "Screen one execution for market-abuse patterns: deterministic detection + risk band, a model-written analyst narrative, a grounding eval, and a detailed audit, with high-risk or ungrounded alerts escalated to a human."
+    timeout: 45
+
+services:
+  # A capability requirement, never a model name. The deployment resolves the
+  # "default" profile to a concrete provider/model, so the same pack runs on a
+  # local model or a cloud one with zero code change.
+  llm:
+    required: true
+    requirements:
+      min_context: 8000
+      capabilities:
+        - structured_output
+
+# The Policy Card — the governance contract the platform enforces. autonomy=suggest:
+# the pack flags and explains; a compliance officer disposes. Every screen is audited
+# in detail, and the command is named in escalation, so a high-risk or ungrounded alert
+# is routed to a person, not silently cleared.
+policy:
+  autonomy: suggest
+  allowed_actions:
+    - llm:complete
+  data_scope:
+    scope: tenant
+  escalation:
+    requires_human_approval:
+      - screen-trade
+  audit:
+    level: detailed
+
+metadata:
+  category: "reference-solution"
+  vertical: "financial-markets"
+  keywords: ["surveillance", "market-abuse", "compliance", "governance", "eval", "audit", "policy-card"]
+  icon: "shield-check"

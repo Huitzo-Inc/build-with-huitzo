@@ -1,0 +1,34 @@
+# In a real pack this file is generated from huitzo.yaml by `huitzo pack sync`.
+# It is committed here so the example is self-contained and CI can install it.
+[project]
+name = "doc-to-json"
+version = "0.2.0"
+description = "Read a claim document, return typed fields: Python extracts what it can, the model judges the rest."
+requires-python = ">=3.11"
+dependencies = ["huitzo-sdk>=1.0.0"]
+authors = [{ name = "Huitzo" }]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-asyncio>=0.23", "mypy>=1.0", "ruff>=0.1"]
+
+[project.entry-points."huitzo.commands"]
+"@reef/doc-to-json/seed-document" = "doc_to_json.commands.seed_document:seed_document"
+"@reef/doc-to-json/extract-claim" = "doc_to_json.commands.extract_claim:extract_claim"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+sources = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.mypy]
+strict = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100

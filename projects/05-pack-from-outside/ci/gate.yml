@@ -1,0 +1,37 @@
+# Door 4: a CI gate.
+#
+# Copy this into YOUR repo at .github/workflows/gate.yml. It runs a deployed pack on
+# every pull request and fails the build if the result does not meet a condition. This
+# is how you put a Huitzo decision in the path of a merge.
+#
+# It is NOT active in build-with-huitzo (GitHub only runs workflows under the repo-root
+# .github/workflows/). It lives here as a template to copy.
+#
+# Set one secret in your repo: HUITZO_API_KEY (a key with the commands:execute scope).
+
+name: huitzo-gate
+
+on:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a pack and gate on its output
+        uses: huitzo-inc/run-pack-action@v1
+        with:
+          pack: "@reef/macro-snapshot"
+          command: country-snapshot
+          input: '{"country": "USA", "indicator": "inflation"}'
+          # Fail the job unless the JSONPath expression is truthy. Here: the snapshot
+          # must have a non-null latest value (the pack actually returned data).
+          fail-on: "$.latest_value == null"
+          timeout: "60"
+        env:
+          # The action authenticates the workflow with this key. Note the two-token
+          # pattern: HUITZO_API_KEY authenticates to Huitzo; GITHUB_TOKEN (if a command
+          # needs it) is passed as a command INPUT, never as the Huitzo credential.
+          HUITZO_API_KEY: ${{ secrets.HUITZO_API_KEY }}

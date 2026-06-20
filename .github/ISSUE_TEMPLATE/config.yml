@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Huitzo documentation
+    url: https://docs.huitzo.ai/docs/
+    about: API reference and conceptual docs (platform access required).
+  - name: Security report
+    url: https://github.com/Huitzo-Inc/build-with-huitzo/blob/main/SECURITY.md
+    about: Please report vulnerabilities privately, not as a public issue.

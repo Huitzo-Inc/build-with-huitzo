@@ -1,0 +1,27 @@
+# This rung is a CLIENT, not a pack: it consumes a deployed pack from outside.
+# So it deliberately has no huitzo-sdk dependency and no huitzo.yaml. It is a plain
+# Python project with one small dependency (httpx), so it runs anywhere.
+[project]
+name = "pack-from-outside"
+version = "0.1.0"
+description = "Drive a deployed Huitzo pack from outside, over the REST API."
+requires-python = ">=3.11"
+dependencies = ["httpx>=0.27"]
+authors = [{ name = "Huitzo" }]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "respx>=0.21"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["huitzo_client.py", "mcp_client.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100

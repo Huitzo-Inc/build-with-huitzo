@@ -1,0 +1,52 @@
+schema_version: 2
+
+pack:
+  name: expense-triage
+  namespace: reef
+  version: 0.1.0
+  description: "Three commands behind an expense triage app: list, classify (rules first, model for the fuzzy ones), and record a human's approval."
+  author: "Huitzo"
+  visibility: public
+
+permissions:
+  - llm:complete
+
+commands:
+  - name: list-expenses
+    entry_point: "expense_triage.commands.list_expenses:list_expenses"
+    description: "List expenses, optionally filtered by status. Deterministic, no model."
+    timeout: 30
+  - name: classify-expense
+    entry_point: "expense_triage.commands.classify_expense:classify_expense"
+    description: "Classify an expense with deterministic rules, calling the model only when the rules are unsure."
+    timeout: 30
+  - name: approve-expense
+    entry_point: "expense_triage.commands.approve_expense:approve_expense"
+    description: "Record a human's approve or reject decision on an expense. Deterministic, no model."
+    timeout: 30
+
+services:
+  llm:
+    required: true
+    requirements:
+      min_context: 8000
+      capabilities:
+        - structured_output
+
+# autonomy=suggest: the app proposes a classification, but a human approves. The
+# approve-expense command records that human decision; it never decides on its own.
+policy:
+  autonomy: suggest
+  allowed_actions:
+    - llm:complete
+  data_scope:
+    scope: tenant
+  escalation:
+    requires_human_approval: []
+  audit:
+    level: standard
+
+metadata:
+  category: "tier-6"
+  keywords: ["fullstack", "expenses", "classification", "rules-first", "tier-6"]
+  icon: "receipt"

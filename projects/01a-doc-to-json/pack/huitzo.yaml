@@ -1,0 +1,58 @@
+schema_version: 2
+
+pack:
+  name: doc-to-json
+  namespace: reef
+  version: 0.2.0
+  description: "Read a claim document, return typed fields: Python extracts what it can, the model judges the rest."
+  author: "Huitzo"
+  visibility: public
+
+# Three capability tokens. Each must also appear in policy.allowed_actions below.
+# The manifest cross-checks that a pack can only do what its Policy Card allows.
+# seed-document needs storage:write; extract-claim needs storage:read.
+permissions:
+  - storage:read
+  - storage:write
+  - llm:complete
+
+commands:
+  - name: seed-document
+    entry_point: "doc_to_json.commands.seed_document:seed_document"
+    description: "Write a claim document into storage by id, so extract-claim can read it back."
+    timeout: 30
+  - name: extract-claim
+    entry_point: "doc_to_json.commands.extract_claim:extract_claim"
+    description: "Read an insurance claim document and return a typed, review-flagged record."
+    timeout: 60
+
+services:
+  # storage (ctx.storage, the key-value store) needs only the storage:read and
+  # storage:write permissions above, not a services block; documents are keyed by id.
+  # llm: the pack declares a *capability requirement*, never a model name. The
+  # deployment resolves the "default" profile to a concrete provider/model, so
+  # the same pack runs on a local model or a cloud one with zero code change.
+  llm:
+    required: true
+    requirements:
+      min_context: 16000
+      capabilities:
+        - structured_output
+
+policy:
+  autonomy: suggest
+  allowed_actions:
+    - storage:read
+    - storage:write
+    - llm:complete
+  data_scope:
+    scope: tenant
+  escalation:
+    requires_human_approval: []
+  audit:
+    level: detailed
+
+metadata:
+  category: "tier-1"
+  keywords: ["document", "extraction", "claims", "structured-output", "tier-1"]
+  icon: "file-text"

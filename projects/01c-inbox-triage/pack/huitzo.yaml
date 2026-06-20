@@ -1,0 +1,48 @@
+schema_version: 2
+
+pack:
+  name: inbox-triage
+  namespace: reef
+  version: 0.1.0
+  description: "Read a customer email, classify it deterministically first, then draft a reply with the model. It never sends."
+  author: "Huitzo"
+  visibility: public
+
+# One capability token. It must also appear in policy.allowed_actions below,
+# the manifest cross-checks that a pack can only do what its Policy Card allows.
+permissions:
+  - llm:complete
+
+commands:
+  - name: triage-email
+    entry_point: "inbox_triage.commands.triage_email:triage_email"
+    description: "Classify an inbound email, flag urgency in Python, and draft a reply for a human to send."
+    timeout: 45
+
+services:
+  # The pack declares a *capability requirement*, never a model name. The
+  # deployment resolves the "default" profile to a concrete provider/model,
+  # so the same pack runs on a local model or a cloud one with zero code change.
+  llm:
+    required: true
+    requirements:
+      min_context: 8000
+      capabilities:
+        - structured_output
+
+policy:
+  # It drafts; a human reads the draft and sends. So: suggest, never act.
+  autonomy: suggest
+  allowed_actions:
+    - llm:complete
+  data_scope:
+    scope: user
+  escalation:
+    requires_human_approval: []
+  audit:
+    level: standard
+
+metadata:
+  category: "tier-1"
+  keywords: ["inbox", "email", "triage", "classification", "draft-reply", "prompt-injection"]
+  icon: "inbox"

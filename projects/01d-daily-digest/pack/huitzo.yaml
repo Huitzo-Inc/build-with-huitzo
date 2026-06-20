@@ -1,0 +1,47 @@
+schema_version: 2
+
+pack:
+  name: daily-digest
+  namespace: reef
+  version: 0.1.0
+  description: "Raw daily sales CSV in, plain-language digest plus one anomaly flag out; every number computed in Python."
+  author: "Huitzo"
+  visibility: public
+
+# One capability token. It must also appear in policy.allowed_actions below,
+# the manifest cross-checks that a pack can only do what its Policy Card allows.
+permissions:
+  - llm:complete
+
+commands:
+  - name: daily-digest
+    entry_point: "daily_digest.commands.daily_digest:daily_digest"
+    description: "Turn a daily sales CSV into a friendly digest plus one deterministic anomaly flag."
+    timeout: 30
+
+services:
+  # The pack declares a *capability requirement*, never a model name. The
+  # deployment resolves the "default" profile to a concrete provider/model,
+  # so the same pack runs on a local model or a cloud one with zero code change.
+  llm:
+    required: true
+    requirements:
+      min_context: 8000
+      capabilities:
+        - structured_output
+
+policy:
+  autonomy: read_only
+  allowed_actions:
+    - llm:complete
+  data_scope:
+    scope: user
+  escalation:
+    requires_human_approval: []
+  audit:
+    level: standard
+
+metadata:
+  category: "tier-1"
+  keywords: ["sales", "csv", "anomaly", "digest", "deterministic", "tier-1"]
+  icon: "chart-line"

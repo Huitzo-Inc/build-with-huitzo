@@ -1,0 +1,135 @@
+<!-- i18n-source-sha: 15043f0da09c296124d0f18b926124def592b13b57f70420925dc2cc64ddb51a -->
+<!-- Este archivo es una traducción revisada de README.md (la fuente en inglés). No lo edites a mano para corregir contenido: actualiza el inglés y vuelve a generar. Ver .translation/README.md. -->
+
+# build-with-huitzo
+
+**Aprende a construir sobre Huitzo creando Intelligence Packs reales, un peldaño a la vez.** Esta es la forma práctica, de copiar y pegar, para pasar de un "hola mundo" de cinco minutos a un despliegue gobernado y multiinquilino.
+
+[![tests](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/test-packs.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/test-packs.yml)
+[![regression-gate](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/regression-gate.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/regression-gate.yml)
+[![i18n](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/i18n.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/i18n.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](./LICENSE)
+[![huitzo-sdk](https://img.shields.io/pypi/v/huitzo-sdk?label=huitzo-sdk)](https://pypi.org/project/huitzo-sdk/)
+
+> Read this in [English](./README.md). La documentación de referencia completa está en [docs.huitzo.ai](https://docs.huitzo.ai/docs/).
+
+Huitzo es el sistema operativo de IA para empresas reguladas. La unidad que construyes y despliegas es un **Intelligence Pack**: código Python determinista que toma las decisiones, con un modelo de IA invocado solo donde aporta valor. Cada ejemplo aquí sigue ese patrón, probado en CI para que funcione al primer intento.
+
+> ⭐ **¿Primera vez? Lee primero [El momento "ajá"](./docs/es/the-aha-moment.md)** ([English](./docs/en/the-aha-moment.md)). Un pack gobernado, con el modelo cambiado de Claude a GPT‑4o modificando una sola línea de configuración — misma decisión, misma auditoría, misma Policy Card. Es la forma más rápida de *sentir por qué* construyes una solución regulada sobre Huitzo en lugar de cablear un SDK de LLM directamente.
+
+## Inicio rápido (unos cinco minutos)
+
+```bash
+# 1. Instala la CLI de Huitzo (no necesitas cuenta)
+curl -sSf https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.sh | sh
+
+# 2. Obtén los ejemplos y abre el primer pack
+git clone https://github.com/Huitzo-Inc/build-with-huitzo
+cd build-with-huitzo/projects/00-hello-pack/pack
+
+# 3. Crea un entorno virtual de Python 3.11+, instala el SDK y ejecuta las pruebas
+python3 -m venv .venv && source .venv/bin/activate   # Requiere Python 3.11+
+pip install -e ".[dev]"
+pytest                  # las pruebas sin conexión del pack (exactamente lo que corre CI)
+```
+
+Eso ejecuta el pack completamente sin conexión. Para ejecutarlo de verdad contra tu Huitzo Hub cuando tengas acceso anticipado:
+
+```bash
+huitzo login
+huitzo run @your-org/hello-pack/hello --args '{"text": "Huitzo hace que la IA funcione donde viven tus datos."}'
+```
+
+> Los ejemplos usan la org `@reef`, que no es tuya. Antes de publicarlos o ejecutarlos en un Hub, vuelve a asignarlos a una org que sí poseas. Consulta [Ejecuta en tu propio Hub](#ejecuta-en-tu-propio-hub).
+
+## La escalera
+
+Cada peldaño se apoya en los anteriores, así que el proyecto más difícil es alcanzable y no un muro. Empieza donde estés.
+
+| Peldaño | Proyecto | Qué construirás | Qué demuestra |
+|---------|----------|-----------------|---------------|
+| **Nivel 0** | [`00-hello-pack`](./projects/00-hello-pack) | Entra texto, una llamada al modelo, salida estructurada. Cambia de modelo con una línea de configuración. | El SDK, la interfaz única, el enrutamiento agnóstico al modelo. La ruta más rápida a un pack funcionando. |
+| **Nivel 1** | [`01a-doc-to-json`](./projects/01a-doc-to-json) | Lee un PDF (siniestro, informe de laboratorio, contrato) y devuelve campos tipados. | Almacenamiento + IA + salida estructurada. La promesa de la página de inicio. |
+| **Nivel 1** | [`01b-macro-snapshot`](./projects/01b-macro-snapshot) | Llama a una API pública (Banco Mundial) y devuelve un resumen fundamentado. | Integración HTTP + IA fundamentada. |
+| **Nivel 1** | [`01c-inbox-triage`](./projects/01c-inbox-triage) | Lee correo, lo clasifica y redacta una respuesta para que una persona la envíe. | El triaje determinista decide la urgencia; el modelo solo redacta, y el pack nunca envía. |
+| **Nivel 1** | [`01d-daily-digest`](./projects/01d-daily-digest) | Convierte un CSV de ventas en un resumen y una alerta de anomalía. | Las mismas primitivas sirven a una tienda de una sola sede y a un conglomerado. |
+| **Nivel 2** | [`02-grounded-reco`](./projects/02-grounded-reco) | Una recomendación que no alucinará: lógica determinista, evaluaciones automáticas y rastro de auditoría completo. | La capa de gobernanza y la Policy Card. Donde Huitzo deja de parecer un envoltorio fino sobre un LLM. |
+| **Nivel 3** | [`03-claims-pipeline`](./projects/03-claims-pipeline) | Tres comandos tipados compuestos en un pipeline gobernado. | Composición: un flujo de trabajo es dato declarativo que el ejecutor verifica por tipos, no código de pegamento. |
+| **Nivel 4** | [`04-first-dashboard`](./projects/04-first-dashboard) | Un dashboard de React que llama a un pack desde el navegador. | El frontend: una app del Dashboard SDK es un consumidor delgado de decisiones que el pack ya tomó. |
+| **Nivel 5** | [`05-pack-from-outside`](./projects/05-pack-from-outside) | Maneja un pack desplegado por REST, la CLI, MCP alojado y CI. | Un solo modelo mental, cuatro puertas: cómo interactuar con huitzo.ai desde cualquier lugar. |
+| **Nivel 6** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | Un pack y un dashboard en un proyecto, probados de principio a fin en tu portátil. | Fullstack: la API de comandos es el único contrato entre Python y la interfaz. |
+| Nivel 7 | `07-sovereign-suite` | Un sistema gobernado, multiinquilino y desplegable en cualquier entorno para un conglomerado. | **Próximamente** ([issue de seguimiento](https://github.com/Huitzo-Inc/build-with-huitzo/issues)). |
+
+## Soluciones de referencia reguladas
+
+Más allá de la escalera de aprendizaje, estos son puntos de partida creíbles para un entregable real de cliente — el patrón gobernado aplicado a una vertical regulada concreta, pensado para **adaptarse y revenderse**, no solo leerse. Cada uno es autoalojado y agnóstico al modelo, así que los datos del cliente nunca salen de su frontera y nunca queda atado a un proveedor.
+
+| Vertical | Solución | Qué hace |
+|----------|----------|----------|
+| **Mercados financieros** | [`08-trade-surveillance`](./projects/08-trade-surveillance) | Analiza operaciones en busca de patrones de abuso de mercado (precio fuera de mercado, marcar el cierre, spoofing, operaciones de lavado, anomalías de tamaño): detección determinista + banda de riesgo, una narrativa de analista escrita por el modelo, una evaluación de fundamento y un registro de auditoría completo — las alertas de alto riesgo o sin fundamento se escalan a una persona. |
+
+Más verticales (banca, gobierno) siguen el mismo esqueleto; adapta los detectores y conserva la gobernanza.
+
+## Ejecuta en tu propio Hub
+
+Todo lo anterior corre y se prueba sin conexión. Para publicar y ejecutar un ejemplo en un Hub real, dos cosas importan.
+
+**1. Usa una org que poseas.** Los ejemplos están bajo la org `@reef`. Es casi seguro que no posees `reef`, así que vuelve a asignar cada pack a una organización que sí poseas antes de publicar:
+
+```bash
+huitzo login
+# En el huitzo.yaml del pack, cambia el namespace por el slug de tu org:
+#   pack:
+#     namespace: tu-org        # antes: reef
+huitzo pack sync                  # reescribe los entry points de pyproject.toml desde huitzo.yaml
+huitzo pack publish
+huitzo run @tu-org/hello-pack/hello --args '{"text": "..."}'
+```
+
+El `namespace:` en `huitzo.yaml` es la fuente autoritativa. `huitzo pack sync` reescribe los entry points de `pyproject.toml` para que coincidan, así que nunca los editas a mano. **NO necesitas tocar el argumento `namespace=` del decorador `@command(...)`** — la plataforma toma el namespace publicado de los entry points (definidos por `huitzo.yaml` + `pack sync`), así que el valor del decorador es solo metadato y cambiar tu org no exige editarlo. (Puedes actualizarlo para que coincida por legibilidad, pero no se rompe nada si lo dejas.) Los dashboards funcionan igual: cambia `namespace` y `pack_dependencies` en `huitzo-dashboard.yaml`, y los ids de comando en el `types.ts` del dashboard, por tu org.
+
+Obtienes una org de desarrollador al activar el Modo Desarrollador (la CLI te lo pide en tu primera publicación, o lo haces en el Hub). Tu slug de org aparece en el Hub.
+
+**2. El despliegue debe tener lo que el pack necesita.** Un pack que llama a un modelo necesita que el registro de LLM del despliegue tenga un modelo que cumpla su piso `services.llm` (una ventana de contexto más `structured_output`). Un pack que llama a una API externa necesita una integración HTTP que coincida. [`01b-macro-snapshot`](./projects/01b-macro-snapshot) muestra cómo añadir una en el Hub.
+
+## Ejecuta de verdad: solicita un sandbox de Hub
+
+Cada ejercicio se construye y prueba en tu portátil sin cuenta. Para ejecutar los
+peldaños finales (Niveles 4–6: dashboards, los clientes externos, el pipeline
+gobernado) contra un **Hub gobernado en vivo** —y sentir la historia del cambio
+de modelo y la Policy Card de principio a fin— solicita un **Hub sandbox** de
+partner:
+
+- **Solicita acceso:** empieza en [huitzo.ai](https://huitzo.ai) (acceso
+  anticipado), o escribe al equipo de partners a **ernesto@huitzo.ai** con tu org
+  y lo que quieres construir. Cuéntanos que vienes de `build-with-huitzo`.
+- **Qué obtienes:** un Hub sandbox aislado, precableado con un modelo que cumple
+  el piso `structured_output` de los packs, donde puedes hacer `huitzo publish` y
+  `huitzo run` de estos ejercicios y de tus propios packs de verdad.
+- **Está aislado por diseño.** Un sandbox está aislado de cualquier Hub de
+  cliente —la misma frontera de cero acceso y autoalojada que obtienen tus
+  propios clientes regulados. Construyes y revendes sobre esa frontera; el
+  sandbox te deja sentirla primero.
+
+## Cómo mantenemos honestos estos ejemplos
+
+- **Cada pack se prueba en CI** contra el `huitzo-sdk` publicado, así un ejemplo roto rompe el build, no tu tarde.
+- **Una [puerta de regresión](./tests/README.md) protege cada clase de bug que hemos corregido.** Una prueba offline por cada bug de producción pasado (fiabilidad de enums, refs de pipeline, fallos de `process` en dashboards, formas de petición de los clientes, …) corre en cada cambio, así un bug corregido nunca puede volver en silencio. Ningún ejercicio se publica si no se mantiene en verde.
+- **El inglés es la única fuente de verdad; el español es una traducción revisada.** Una [verificación de obsolescencia](./.translation/README.md) impide que cualquier archivo en español quede desactualizado respecto a su fuente en inglés. Solo editas a mano el inglés.
+- **Los nombres ficticios son inventados.** Empresas como Nautilus Mutual y Leviathan Holdings son marcadores de posición. No aparece ningún cliente real.
+
+## Qué necesitas
+
+- Python 3.11+ y `pip`
+- Node 20+ y npm para los peldaños de dashboard (Niveles 4 y 6)
+- La [CLI de Huitzo](https://github.com/Huitzo-Inc/huitzo-launcher) (instalación de una línea arriba; Linux, macOS o WSL2)
+- El [`huitzo-sdk`](https://pypi.org/project/huitzo-sdk/) de PyPI (se instala por pack)
+- Acceso anticipado a un Huitzo Hub solo para ejecutar los peldaños posteriores contra un Hub real. Cada ejercicio se construye y se prueba localmente sin uno.
+
+## Cómo contribuir
+
+Los nuevos packs son bienvenidos, en especial plantillas de la comunidad. Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) y busca issues con la etiqueta `good first issue`. Los reportes de seguridad van a [SECURITY.md](./SECURITY.md).
+
+## Licencia
+
+[MIT](./LICENSE). Construye sobre esto con libertad.

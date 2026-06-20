@@ -1,0 +1,47 @@
+schema_version: 2
+
+pack:
+  name: hello-pack
+  namespace: reefs
+  version: 0.1.0
+  description: "The smallest complete Intelligence Pack: text in, model call, typed output."
+  author: "Huitzo"
+  visibility: public
+
+# One capability token. It must also appear in policy.allowed_actions below;
+# the manifest cross-checks that a pack can only do what its Policy Card allows.
+permissions:
+  - llm:complete
+
+commands:
+  - name: hello
+    entry_point: "hello_pack.commands.hello:hello"
+    description: "Analyze a short text and return a structured insight."
+    timeout: 30
+
+services:
+  # The pack declares a *capability requirement*, never a model name. The
+  # deployment resolves the "default" profile to a concrete provider/model,
+  # so the same pack runs on a local model or a cloud one with zero code change.
+  llm:
+    required: true
+    requirements:
+      min_context: 8000
+      capabilities:
+        - structured_output
+
+policy:
+  autonomy: read_only
+  allowed_actions:
+    - llm:complete
+  data_scope:
+    scope: user
+  escalation:
+    requires_human_approval: []
+  audit:
+    level: standard
+
+metadata:
+  category: "getting-started"
+  keywords: ["hello", "tutorial", "getting-started", "structured-output"]
+  icon: "sparkles"

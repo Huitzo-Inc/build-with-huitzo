@@ -1,0 +1,58 @@
+schema_version: 2
+
+pack:
+  name: macro-snapshot
+  namespace: reef
+  version: 0.1.0
+  description: "Pull one macro indicator for one country and return a grounded plain-language summary."
+  author: "Huitzo"
+  visibility: public
+
+# Two capability tokens. Each must also appear in policy.allowed_actions below,
+# the manifest cross-checks that a pack can only do what its Policy Card allows.
+permissions:
+  - http:request
+  - llm:complete
+
+commands:
+  - name: country-snapshot
+    entry_point: "macro_snapshot.commands.country_snapshot:country_snapshot"
+    description: "Fetch one World Bank indicator for one country and narrate the numbers Python computed."
+    timeout: 30
+
+services:
+  # The pack reaches exactly one allow-listed host. Swap this for an internal API
+  # (your data warehouse, a pricing service) and the command code does not change.
+  http:
+    required: true
+    allowed_domains:
+      - "api.worldbank.org"
+    timeout: 15
+  # The pack declares a *capability requirement*, never a model name. The
+  # deployment resolves the "default" profile to a concrete provider/model.
+  llm:
+    required: true
+    requirements:
+      min_context: 8000
+      capabilities:
+        - structured_output
+
+policy:
+  autonomy: read_only
+  allowed_actions:
+    - http:request
+    - llm:complete
+  data_scope:
+    scope: user
+    # The http allow-list must be a subset of this external_domains list.
+    external_domains:
+      - "api.worldbank.org"
+  escalation:
+    requires_human_approval: []
+  audit:
+    level: standard
+
+metadata:
+  category: "tier-1"
+  keywords: ["macro", "world-bank", "http", "grounded-ai", "tier-1"]
+  icon: "bar-chart"

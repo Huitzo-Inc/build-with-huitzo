@@ -1,0 +1,79 @@
+schema_version: 2
+
+pack:
+  name: claims-pipeline
+  namespace: reef
+  version: 0.1.0
+  description: "Three typed commands composed into one governed claims pipeline: extract, assess risk, recommend an action."
+  author: "Huitzo"
+  visibility: public
+
+# One capability token. It must also appear in policy.allowed_actions below,
+# the manifest cross-checks that a pack can only do what its Policy Card allows.
+# Only two of the three stages call a model; the risk stage is pure Python.
+permissions:
+  - llm:complete
+
+# Each stage is a normal, independently testable command. The same functions run
+# standalone (`huitzo run`) and as pipeline stages; the pipeline just declares the
+# order and lets the executor type-check the handoff between them.
+commands:
+  - name: extract-claim
+    entry_point: "claims_pipeline.commands.extract_claim:extract_claim"
+    description: "Read a claim document, pull the provable fields in Python, classify and summarize with the model."
+    timeout: 60
+  - name: assess-risk
+    entry_point: "claims_pipeline.commands.assess_risk:assess_risk"
+    description: "Score a claim's risk from fixed, documented rules. No model: this is a deterministic decision."
+    timeout: 30
+  - name: recommend-action
+    entry_point: "claims_pipeline.commands.recommend_action:recommend_action"
+    description: "Decide the action in Python, have the model justify it, eval the result, and write an audit record."
+    timeout: 45
+
+services:
+  # A capability requirement, never a model name. The deployment resolves the
+  # "default" profile to a concrete provider/model, so the same pack runs on a
+  # local model or a cloud one with zero code change.
+  llm:
+    required: true
+    requirements:
+      min_context: 8000
+      capabilities:
+        - structured_output
+
+# The pipeline is declarative. Each stage names a command in this pack; the
+# executor runs them in order and checks that each stage's output matches the
+# next stage's typed input. A workflow is data the platform validates, not glue
+# code you maintain by hand. Stage commands use the `pack:command` form.
+pipelines:
+  score-claim:
+    description: "Extract a claim, assess its risk, and recommend an action, type-checked at every handoff."
+    timeout: 120
+    error_strategy: fail_fast
+    stages:
+      - name: extract
+        command: "claims-pipeline:extract-claim"
+      - name: assess
+        command: "claims-pipeline:assess-risk"
+      - name: recommend
+        command: "claims-pipeline:recommend-action"
+
+# The Policy Card. autonomy=suggest: the pipeline recommends, a human disposes.
+# recommend-action is named in escalation, so an escalated claim goes to a person.
+policy:
+  autonomy: suggest
+  allowed_actions:
+    - llm:complete
+  data_scope:
+    scope: tenant
+  escalation:
+    requires_human_approval:
+      - recommend-action
+  audit:
+    level: detailed
+
+metadata:
+  category: "tier-3"
+  keywords: ["pipeline", "composition", "claims", "governance", "typed-handoff", "tier-3"]
+  icon: "git-branch"
