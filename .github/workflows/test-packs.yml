@@ -22,7 +22,7 @@ jobs:
             if [ -f "$d/pyproject.toml" ]; then
               found=1
               echo "::group::$d"
-              (cd "$d" && pip install -e ".[dev]" && python -m pytest -q)
+              (cd "$d" && python -m pip install -e ".[dev]" && python -m pytest -q)
               echo "::endgroup::"
             fi
           done
