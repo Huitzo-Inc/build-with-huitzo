@@ -2,7 +2,7 @@ schema_version: 2
 
 pack:
   name: hello-pack
-  namespace: reefs
+  namespace: reef
   version: 0.1.0
   description: "The smallest complete Intelligence Pack: text in, model call, typed output."
   author: "Huitzo"
