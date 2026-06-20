@@ -42,4 +42,4 @@ jobs:
           python-version: "3.13"
       - run: pip install -e ".[dev]"
       - name: Run the offline client tests
-        run: pytest -q
+        run: python -m pytest -q
