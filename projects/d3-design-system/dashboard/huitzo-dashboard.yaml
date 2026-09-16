@@ -1,0 +1,19 @@
+schema_version: 1
+
+# This rung is about how a dashboard looks, so it renders a fixed sample rather
+# than calling a command. No pack dependency, no network.
+dashboard:
+  name: design-system
+  namespace: reef
+  version: 0.1.0
+  description: "The same macro snapshot rendered twice: generic, then on Huitzo brand tokens."
+  visibility: private
+  category: utilities
+  icon: "palette"
+
+pack_dependencies: []
+
+build:
+  framework: react
+  entry_point: main.js
+  min_sdk_version: "6.0.0"

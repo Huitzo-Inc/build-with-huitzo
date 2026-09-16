@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: d3386ba21200bfa413b6a16e777f2752614aa1325ee73bbe4f47edc91f61d246 -->
+<!-- i18n-source-sha: 9d4cd5b2a4876a62538a93da6b303325898374ffb7bc280f19882b90b2f43dc4 -->
 <!-- Este archivo es una traducción revisada de README.md (la fuente en inglés). No lo edites a mano para corregir contenido: actualiza el inglés y vuelve a generar. Ver .translation/README.md. -->
 
 # build-with-huitzo
@@ -116,15 +116,17 @@ pack, y cada peldaño te entrega el pack al que llama, ya escrito y ya probado:
 |---------|----------|-----------------|---------------|
 | **D0** | [`d0-hello-dashboard`](./projects/d0-hello-dashboard) | El módulo más pequeño que Hub puede montar. Sin pack, sin red. | El contrato `mount`/`unmount`: un dashboard es un módulo que Hub ejecuta, no un sitio web. |
 | **D1** | [`04-first-dashboard`](./projects/04-first-dashboard) | Un dashboard que llama a un comando real de un pack con `useCommand`, contra un Hub simulado. | El frontend es un consumidor delgado de decisiones que Python ya tomó. |
-| **D2** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | Leer con un hook, escribir con el cliente, actualizaciones optimistas con reversión. | La API de comandos es el único contrato entre Python y la interfaz. |
+| D2 | `d2-forms-and-input` | Formularios tipados desde una especificación declarativa de campos, con los errores de validación del pack en los campos correctos. | *En curso.* |
+| **D3** | [`d3-design-system`](./projects/d3-design-system) | La misma instantánea renderizada genérica y luego sobre tokens de marca, con las reglas de diseño verificadas por pruebas. | Un dashboard de Huitzo debería verse como Huitzo en el primer renderizado, no tras un rediseño. |
+| D4 | `d4-slow-commands` | Salida en streaming, la ruta de comandos encolados, avisos y migas de pan de Hub. | *En curso.* |
+| D5 | `d5-governed-ui` | La interfaz de una decisión retenida o escalada, con su registro de evidencia. | *En curso.* |
+| D6 | `d6-ship-it` | Validar, construir, publicar y versionar contra un contrato de comandos. | *En curso.* |
 
-Hay más peldaños en curso: formularios declarativos, el sistema de tokens de marca,
-comandos en streaming y encolados, y la interfaz gobernada que renderiza una decisión
-retenida y su registro de evidencia. Consulta [la ruta de aprendizaje](./docs/es/index.md)
-para el mapa.
+**Peldaño final:** ambas rutas se encuentran en [`06-fullstack-triage`](./projects/06-fullstack-triage):
+un pack y un dashboard en un proyecto, acoplados solo por la API de comandos.
 
 > **¿Ya conoces los packs?** El Nivel 4 es D1. Las dos rutas son el mismo repositorio
-> visto desde dos direcciones, y se encuentran en el Nivel 6.
+> visto desde dos direcciones.
 
 ## Soluciones de referencia reguladas
 

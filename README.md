@@ -113,14 +113,17 @@ tested — **you never have to write Python to finish one.**
 |------|---------|---------------------|----------------|
 | **D0** | [`d0-hello-dashboard`](./projects/d0-hello-dashboard) | The smallest module Hub can mount. No pack, no network. | The `mount`/`unmount` contract: a dashboard is a module Hub runs, not a website. |
 | **D1** | [`04-first-dashboard`](./projects/04-first-dashboard) | A dashboard that calls a real pack command with `useCommand`, against a mock Hub. | The frontend is a thin consumer of decisions the Python already made. |
-| **D2** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | Reading with a hook, writing with the client, optimistic updates with revert. | The command API is the single contract between Python and the UI. |
+| D2 | `d2-forms-and-input` | Typed forms from a declarative field spec, with the pack's own validation errors on the right fields. | *In progress.* |
+| **D3** | [`d3-design-system`](./projects/d3-design-system) | The same snapshot rendered generic, then on brand tokens — with the design rules enforced by tests. | A Huitzo dashboard should look like Huitzo on first render, not after a redesign. |
+| D4 | `d4-slow-commands` | Streaming output, the queued-command path, Hub toasts and breadcrumbs. | *In progress.* |
+| D5 | `d5-governed-ui` | The interface for a decision that was withheld or escalated, with its evidence record. | *In progress.* |
+| D6 | `d6-ship-it` | Validate, build, publish, version against a command contract. | *In progress.* |
 
-More rungs are in progress — declarative forms, the brand token system, streaming
-and queued commands, and the governed interface that renders a withheld decision
-and its evidence record. See [the learning path](./docs/en/index.md) for the map.
+**Capstone:** both paths meet at [`06-fullstack-triage`](./projects/06-fullstack-triage) — a pack
+and a dashboard in one project, coupled only by the command API.
 
 > **Already know packs?** Tier 4 is D1. The two paths are the same repository seen
-> from two directions, and they meet at Tier 6.
+> from two directions.
 
 ## Regulated reference solutions
 

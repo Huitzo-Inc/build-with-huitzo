@@ -52,11 +52,15 @@ For developers who build interfaces. It starts with a dashboard rather than a pa
 
 1. **[D0: `d0-hello-dashboard`](../../projects/d0-hello-dashboard)** (~10 min): the smallest module Hub can mount. No pack, no network, no command call. The `mount`/`unmount` contract.
 2. **[D1: `04-first-dashboard`](../../projects/04-first-dashboard)** (~40 min): call a real pack command with `useCommand`, against a mock Hub that runs on your laptop.
-3. **[D2: `06-fullstack-triage`](../../projects/06-fullstack-triage)** (~1 hour): read with a hook, write with the client, optimistic updates with revert, and the fast-versus-queued command contract.
+3. *D2: `d2-forms-and-input`* — in progress: typed forms from a declarative `FormFieldSpec`, with the pack's own validation errors landing on the right fields.
+4. **[D3: `d3-design-system`](../../projects/d3-design-system)** (~30 min): the same snapshot rendered generic, then on brand tokens — and the design rules turned into tests that fail the build.
+5. *D4: `d4-slow-commands`* — in progress: `useStreamingCommand`, the `CommandReceipt` path with `tasks.poll`, `useRealtime`, Hub toasts and breadcrumbs.
+6. *D5: `d5-governed-ui`* — in progress: `TemplateFrame`, `ResultSection` and `EvidenceLink` rendering a withheld decision and its audit record. The dashboard answer to `02-grounded-reco`.
+7. *D6: `d6-ship-it`* — in progress: validate, build, publish, and version against a command contract.
 
-Rungs in progress, in order: declarative forms (`Form`, `FormFieldSpec`), the brand token system and `hz-*` primitives, streaming and queued commands (`useStreamingCommand`, `tasks.poll`), and the governed interface — `TemplateFrame`, `ResultSection` and `EvidenceLink` rendering a withheld decision and its audit record.
+**Capstone:** both paths meet at [`06-fullstack-triage`](../../projects/06-fullstack-triage) (~1 hour) — read with a hook, write with the client, optimistic updates with revert, and the fast-versus-queued command contract.
 
-Both paths end at Tier 6. They are the same repository seen from two directions.
+They are the same repository seen from two directions.
 
 ## Regulated reference solutions
 

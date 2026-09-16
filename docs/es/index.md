@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 3e1807ca988b215bb37c4c3401b4b792fe09d59ca88252f92030dfeca39be86c -->
+<!-- i18n-source-sha: 64cd2846d6501d6f2da7a6cbe6eafa1f0c3b8b82339ec3ec1e6e70ebebc8cf33 -->
 
 # Ruta de aprendizaje
 
@@ -54,11 +54,15 @@ Para quienes construyen interfaces. Empieza con un dashboard en vez de un pack, 
 
 1. **[D0: `d0-hello-dashboard`](../../projects/d0-hello-dashboard)** (~10 min): el módulo más pequeño que Hub puede montar. Sin pack, sin red, sin llamada a comandos. El contrato `mount`/`unmount`.
 2. **[D1: `04-first-dashboard`](../../projects/04-first-dashboard)** (~40 min): llama a un comando real de un pack con `useCommand`, contra un Hub simulado que corre en tu portátil.
-3. **[D2: `06-fullstack-triage`](../../projects/06-fullstack-triage)** (~1 hora): lee con un hook, escribe con el cliente, actualizaciones optimistas con reversión, y el contrato de comandos fast frente a encolados.
+3. *D2: `d2-forms-and-input`* — en curso: formularios tipados desde un `FormFieldSpec` declarativo, con los errores de validación del pack cayendo en los campos correctos.
+4. **[D3: `d3-design-system`](../../projects/d3-design-system)** (~30 min): la misma instantánea renderizada genérica y luego sobre tokens de marca, con las reglas de diseño convertidas en pruebas que rompen el build.
+5. *D4: `d4-slow-commands`* — en curso: `useStreamingCommand`, la ruta de `CommandReceipt` con `tasks.poll`, `useRealtime`, avisos y migas de pan de Hub.
+6. *D5: `d5-governed-ui`* — en curso: `TemplateFrame`, `ResultSection` y `EvidenceLink` renderizando una decisión retenida y su registro de auditoría. La respuesta en dashboard a `02-grounded-reco`.
+7. *D6: `d6-ship-it`* — en curso: validar, construir, publicar y versionar contra un contrato de comandos.
 
-Peldaños en curso, en orden: formularios declarativos (`Form`, `FormFieldSpec`), el sistema de tokens de marca y las primitivas `hz-*`, comandos en streaming y encolados (`useStreamingCommand`, `tasks.poll`), y la interfaz gobernada: `TemplateFrame`, `ResultSection` y `EvidenceLink` renderizando una decisión retenida y su registro de auditoría.
+**Peldaño final:** ambas rutas se encuentran en [`06-fullstack-triage`](../../projects/06-fullstack-triage) (~1 hora): lee con un hook, escribe con el cliente, actualizaciones optimistas con reversión, y el contrato de comandos fast frente a encolados.
 
-Ambas rutas terminan en el Nivel 6. Son el mismo repositorio visto desde dos direcciones.
+Son el mismo repositorio visto desde dos direcciones.
 
 ## Soluciones de referencia para sectores regulados
 
