@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 15043f0da09c296124d0f18b926124def592b13b57f70420925dc2cc64ddb51a -->
+<!-- i18n-source-sha: 0cbc3cd3c042800313bded9d8e15e368f6e7f08cf421ba45a096c1dd435ee036 -->
 <!-- Este archivo es una traducción revisada de README.md (la fuente en inglés). No lo edites a mano para corregir contenido: actualiza el inglés y vuelve a generar. Ver .translation/README.md. -->
 
 # build-with-huitzo
@@ -20,18 +20,29 @@ Huitzo es el sistema operativo de IA para empresas reguladas. La unidad que cons
 ## Inicio rápido (unos cinco minutos)
 
 ```bash
-# 1. Instala la CLI de Huitzo (no necesitas cuenta)
+# 1. Instala la CLI de Huitzo (no necesitas cuenta) — macOS / Linux / WSL2
 curl -sSf https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.sh | sh
+```
 
+```powershell
+# 1. Instala la CLI de Huitzo (no necesitas cuenta) — Windows (PowerShell)
+iwr -useb https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.ps1 | iex
+```
+
+> macOS solo es compatible con Apple Silicon. Homebrew también funciona: `brew install Huitzo-Inc/tap/huitzo`.
+
+```bash
 # 2. Obtén los ejemplos y abre el primer pack
 git clone https://github.com/Huitzo-Inc/build-with-huitzo
 cd build-with-huitzo/projects/00-hello-pack/pack
 
 # 3. Crea un entorno virtual de Python 3.11+, instala el SDK y ejecuta las pruebas
-python3 -m venv .venv && source .venv/bin/activate   # Requiere Python 3.11+
+python3 -m venv .venv && source .venv/bin/activate   # macOS/Linux/WSL2 — requiere Python 3.11+
 pip install -e ".[dev]"
 pytest                  # las pruebas sin conexión del pack (exactamente lo que corre CI)
 ```
+
+> Windows (PowerShell): `py -3 -m venv .venv`, luego `.venv\Scripts\Activate.ps1`, antes de `pip install -e ".[dev]"`.
 
 Eso ejecuta el pack completamente sin conexión. Para ejecutarlo de verdad contra tu Huitzo Hub cuando tengas acceso anticipado:
 
@@ -122,7 +133,7 @@ partner:
 
 - Python 3.11+ y `pip`
 - Node 20+ y npm para los peldaños de dashboard (Niveles 4 y 6)
-- La [CLI de Huitzo](https://github.com/Huitzo-Inc/huitzo-launcher) (instalación de una línea arriba; Linux, macOS o WSL2)
+- La [CLI de Huitzo](https://github.com/Huitzo-Inc/huitzo-launcher) (instalación de una línea arriba) — funciona de forma nativa en Windows, macOS (Apple Silicon), Linux y WSL2. El **runner** de Studio (no la CLI) necesita WSL2 en Windows.
 - El [`huitzo-sdk`](https://pypi.org/project/huitzo-sdk/) de PyPI (se instala por pack)
 - Acceso anticipado a un Huitzo Hub solo para ejecutar los peldaños posteriores contra un Hub real. Cada ejercicio se construye y se prueba localmente sin uno.
 

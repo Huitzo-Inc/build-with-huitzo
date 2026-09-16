@@ -17,18 +17,29 @@ Huitzo is the AI operating system for regulated companies. The unit you build an
 ## Quickstart (about five minutes)
 
 ```bash
-# 1. Install the Huitzo CLI (no account needed)
+# 1. Install the Huitzo CLI (no account needed) — macOS / Linux / WSL2
 curl -sSf https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.sh | sh
+```
 
+```powershell
+# 1. Install the Huitzo CLI (no account needed) — Windows (PowerShell)
+iwr -useb https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.ps1 | iex
+```
+
+> macOS is Apple Silicon only. Homebrew also works: `brew install Huitzo-Inc/tap/huitzo`.
+
+```bash
 # 2. Get the examples and open the first pack
 git clone https://github.com/Huitzo-Inc/build-with-huitzo
 cd build-with-huitzo/projects/00-hello-pack/pack
 
 # 3. Create a Python 3.11+ virtualenv, install the SDK, and run the pack's tests
-python3 -m venv .venv && source .venv/bin/activate   # Python 3.11+ required
+python3 -m venv .venv && source .venv/bin/activate   # macOS/Linux/WSL2 — Python 3.11+ required
 pip install -e ".[dev]"
 pytest                  # the pack's offline tests (exactly what CI runs)
 ```
+
+> Windows (PowerShell): `py -3 -m venv .venv`, then `.venv\Scripts\Activate.ps1`, before `pip install -e ".[dev]"`.
 
 That runs the pack fully offline. To run it for real against your Huitzo Hub once you have early access:
 
@@ -117,7 +128,7 @@ story end to end — request a partner **sandbox Hub**:
 
 - Python 3.11+ and `pip`
 - Node 20+ and npm for the dashboard rungs (Tiers 4 and 6)
-- The [Huitzo CLI](https://github.com/Huitzo-Inc/huitzo-launcher) (one-line install above; Linux, macOS, or WSL2)
+- The [Huitzo CLI](https://github.com/Huitzo-Inc/huitzo-launcher) (one-line install above) — runs natively on Windows, macOS (Apple Silicon), Linux, and WSL2. The Studio **runner** (not the CLI) needs WSL2 on Windows.
 - The [`huitzo-sdk`](https://pypi.org/project/huitzo-sdk/) from PyPI (installed per pack)
 - Early access to a Huitzo Hub only to run the later rungs against a live Hub. Every exercise is built and tested locally without one.
 
