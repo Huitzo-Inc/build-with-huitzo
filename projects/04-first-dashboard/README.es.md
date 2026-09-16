@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: e519ad6bf6cad5b22eb83fe5ba96198de6e882e2557ddcfa277d3a62b1db83d2 -->
+<!-- i18n-source-sha: f29e3e01ff04a965c68f62557ea2f975517b022c4eba71d326416eecdaaf1e4f -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 4: first-dashboard
@@ -142,7 +142,11 @@ Apunta `apiUrl` al `mock-server.mjs` incluido, que responde la llamada al comand
 
 ## Qué está planificado (no se usa aquí)
 
-El SDK también exporta `useRealtime`, `useConnectionStatus`, `useHubBreadcrumbs` y `useHubActions`. Están documentados como planificados en el SDK actual y aún no funcionan, así que este dashboard no los usa. Se listan aquí solo para que sepas que vienen, no como APIs funcionales que usar. Lo mismo vale para el registro de componentes para copiar `@huitzo/dashboard-primitives` y `@huitzo/dashboard-mcp`.
+Este peldaño usa a propósito la porción más pequeña posible del SDK. Hay mucho más en la caja, y todo funciona hoy sobre el bus de eventos de Hub: `useRealtime`, `useHubActions`, `useHubBreadcrumbs`, `usePacks`, `useLocale`, `useStreamingCommand` (salida token a token), además de los componentes `Form`, `Dashboard`, `DashboardTile` y `TemplateFrame`. Este primer dashboard simplemente aún no los necesita.
+
+El único hook que *no* está implementado es `useConnectionStatus`: llamarlo lanza un error claro que te remite a `useRealtime()` (la capa WebSocket de eventos de pack que necesita está diferida a una versión futura del backend).
+
+Hay dos paquetes complementarios publicados y usables: [`@huitzo/dashboard-primitives`](https://www.npmjs.com/package/@huitzo/dashboard-primitives) (un registro de componentes `hz-*` para copiar, estilo shadcn, fijados por hash) y [`@huitzo/dashboard-mcp`](https://www.npmjs.com/package/@huitzo/dashboard-mcp) (un servidor MCP que expone los comandos, primitivas y tokens de marca de tu dashboard a un agente de IA — ver [Construye con un agente de IA](../../docs/es/claude-code-setup.md)).
 
 ## Ejecútalo de verdad
 

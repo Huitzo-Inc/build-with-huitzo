@@ -139,7 +139,11 @@ Point `apiUrl` at the bundled `mock-server.mjs`, which answers the command call 
 
 ## Other SDK hooks (not needed here)
 
-The SDK also exports `useRealtime`, `useHubBreadcrumbs`, and `useHubActions`. These work today over the Hub mount event bus; this first dashboard simply does not need them yet. The one hook that is *not* implemented is `useConnectionStatus` — calling it raises a clear error pointing you to `useRealtime()` instead (the pack-event WebSocket layer it needs is deferred to a future backend release). The `@huitzo/dashboard-primitives` copy-in component registry and `@huitzo/dashboard-mcp` are likewise on the roadmap.
+This rung deliberately uses the smallest possible slice of the SDK. There is a lot more in the box, and it all works today over the Hub mount event bus: `useRealtime`, `useHubActions`, `useHubBreadcrumbs`, `usePacks`, `useLocale`, `useStreamingCommand` (token-by-token output), plus the `Form`, `Dashboard`, `DashboardTile` and `TemplateFrame` components. This first dashboard simply does not need them yet.
+
+The one hook that is *not* implemented is `useConnectionStatus` — calling it raises a clear error pointing you to `useRealtime()` instead (the pack-event WebSocket layer it needs is deferred to a future backend release).
+
+Two companion packages are published and usable: [`@huitzo/dashboard-primitives`](https://www.npmjs.com/package/@huitzo/dashboard-primitives) (a copy-in, shadcn-style registry of hash-pinned `hz-*` components) and [`@huitzo/dashboard-mcp`](https://www.npmjs.com/package/@huitzo/dashboard-mcp) (an MCP server that exposes your dashboard's commands, primitives and brand tokens to an AI coding agent — see [Build with an AI agent](../../docs/en/claude-code-setup.md)).
 
 ## Run it for real
 

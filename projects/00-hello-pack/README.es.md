@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 747cd42bc8f4a426aacf9b4fdb3279cc08f4e1889a6254a77857fc709ffda377 -->
+<!-- i18n-source-sha: c01605166f868c0e9e78129cc8d4aa5f00736fc4cdfc087a62feeebf79974de4 -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 0: hello-pack
@@ -111,4 +111,4 @@ huitzo run @your-org/hello-pack/hello --args '{"text": "Huitzo hace que la IA fu
 
 ## Siguiente
 
-Nivel 1: [`doc-to-json`](../) lee un documento real desde el almacenamiento y devuelve campos tipados. El mismo patrón, más superficie.
+Nivel 1: [`01a-doc-to-json`](../01a-doc-to-json) lee un documento real desde el almacenamiento y devuelve campos tipados. El mismo patrón, más superficie.

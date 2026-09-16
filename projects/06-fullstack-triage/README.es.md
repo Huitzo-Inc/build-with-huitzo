@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 6d7c4d5bd5acd9a834188a110badd26eb2b645afd2e7c0e5c73a42b405e4c93b -->
+<!-- i18n-source-sha: 6ac00d88a8f0f77ccbcaee8f20c67835de882186d618d320bcc0c33f9e4bd01b -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 6: fullstack-triage
@@ -85,6 +85,26 @@ const onApprove = async (id, approve) => {
   await client.commands.execute<ApprovalResult>(APPROVE_EXPENSE, { expense_id: id, approve, approver: user?.email });
 };
 ```
+
+### `execute()` devuelve una unión, así que hay que estrecharla
+
+`client.commands.execute()` no siempre te entrega un resultado. Un comando de cola
+**fast** corre en línea y devuelve `CommandResult<T>` (HTTP 200). Un comando de
+cola **medium** o **long** se entrega a un worker y devuelve un `CommandReceipt`
+(HTTP 202): un `task_id` para consultar, *no* la salida. El SDK lo hace explícito
+en el tipo, así que el compilador te obliga a decidir con cuál estás tratando:
+
+```tsx
+const res = await client.commands.execute<ClassifyResult>(CLASSIFY_EXPENSE, {...});
+if (isCommandReceipt(res)) {
+  throw new Error(`encolado como ${res.task_id} — consulta client.tasks.get() para el resultado`);
+}
+return res.result.category;   // estrechado a CommandResult<ClassifyResult>
+```
+
+`classify-expense` es un comando fast, así que la rama del recibo significa que el
+despliegue está mal configurado. Importa la guarda `isCommandReceipt` desde
+`@huitzo/dashboard-sdk` (el paquete base), no desde el de React.
 
 ## Actualizaciones optimistas, con reversión
 

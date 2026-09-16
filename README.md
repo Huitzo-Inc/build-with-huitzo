@@ -16,39 +16,43 @@ Huitzo is the AI operating system for regulated companies. The unit you build an
 
 ## Quickstart (about five minutes)
 
-```bash
-# 1. Install the Huitzo CLI (no account needed) — macOS / Linux / WSL2
-curl -sSf https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.sh | sh
-```
-
-```powershell
-# 1. Install the Huitzo CLI (no account needed) — Windows (PowerShell)
-iwr -useb https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.ps1 | iex
-```
-
-> macOS is Apple Silicon only. Homebrew also works: `brew install Huitzo-Inc/tap/huitzo`.
+Python 3.11+ is the only thing you need. No account, no API key, no CLI.
 
 ```bash
-# 2. Get the examples and open the first pack
+# 1. Get the examples and open the first pack
 git clone https://github.com/Huitzo-Inc/build-with-huitzo
 cd build-with-huitzo/projects/00-hello-pack/pack
 
-# 3. Create a Python 3.11+ virtualenv, install the SDK, and run the pack's tests
-python3 -m venv .venv && source .venv/bin/activate   # macOS/Linux/WSL2 — Python 3.11+ required
+# 2. Create a virtualenv, install the SDK, and run the pack's tests
+python3 -m venv .venv && source .venv/bin/activate   # macOS/Linux/WSL2
 pip install -e ".[dev]"
 pytest                  # the pack's offline tests (exactly what CI runs)
 ```
 
 > Windows (PowerShell): `py -3 -m venv .venv`, then `.venv\Scripts\Activate.ps1`, before `pip install -e ".[dev]"`.
 
-That runs the pack fully offline. To run it for real against your Huitzo Hub once you have early access:
+Three passing tests means you have a working Intelligence Pack. Now read
+[`00-hello-pack`](./projects/00-hello-pack) to see what you just ran, then follow
+the [learning path](./docs/en/index.md).
 
-```bash
-huitzo login
-huitzo run @your-org/hello-pack/hello --args '{"text": "Huitzo makes AI work where your data lives."}'
+Everything in this repo runs offline like that. The CLI and a Hub account come in
+later, when you want to publish — see [Run on your own Hub](#run-on-your-own-hub).
+
+## Build it with an AI agent (optional, five minutes)
+
+If you use [Claude Code](https://code.claude.com/docs/en/overview), install the
+Huitzo developer environment before you write your own pack:
+
+```text
+/plugin marketplace add Huitzo-Inc/pack-claude-env
+/plugin install huitzo@huitzo
+/huitzo:huitzo-init
 ```
 
-> The examples are scoped to the `@reef` org, which you do not own. Before you publish or run them on a Hub, re-scope them to an org you own. See [Run on your own Hub](#run-on-your-own-hub).
+It gives your agent verified SDK references, docs-first workflow skills, reviewer
+agents, and a hook that catches a hard-coded model name before you commit it.
+Full instructions, both install channels, and an illustrated walkthrough:
+**[Build with an AI agent](./docs/en/claude-code-setup.md)**.
 
 ## The ladder
 
@@ -66,7 +70,11 @@ Each rung composes the ones below it, so the hardest project is reachable rather
 | **Tier 4** | [`04-first-dashboard`](./projects/04-first-dashboard) | A React dashboard that calls a pack from the browser. | The frontend: a Dashboard SDK app is a thin consumer of decisions the pack already made. |
 | **Tier 5** | [`05-pack-from-outside`](./projects/05-pack-from-outside) | Drive a deployed pack from REST, the CLI, hosted MCP, and CI. | One mental model, four doors: how to interact with huitzo.ai from anywhere. |
 | **Tier 6** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | A pack and a dashboard in one project, tested end to end on your laptop. | Fullstack: the command API is the single contract between Python and the UI. |
-| Tier 7 | `07-sovereign-suite` | A multi-tenant, deploy-anywhere governed system for a conglomerate. | **Coming soon** ([tracked issue](https://github.com/Huitzo-Inc/build-with-huitzo/issues)). |
+| Tier 7 | `07-sovereign-suite` | A multi-tenant, deploy-anywhere governed system for a conglomerate. | **Coming soon** — star the repo to follow along. |
+
+> **Front-end developer?** You do not have to climb the whole ladder to build a
+> UI. Tier 4 only needs [`01b-macro-snapshot`](./projects/01b-macro-snapshot) as
+> the pack it calls, so the short path is **Tier 0 → `01b` → Tier 4 → Tier 6**.
 
 ## Regulated reference solutions
 
@@ -120,17 +128,25 @@ story end to end — request a partner **sandbox Hub**:
 ## How these examples are kept honest
 
 - **Every pack is tested in CI** against the published `huitzo-sdk`, so a broken example fails the build, not your afternoon.
+- **A weekly [SDK drift check](./.github/workflows/sdk-drift.yml) rebuilds every example against the *latest* published SDKs**, ignoring the lockfile. Pull-request CI is reproducible (it installs what the lockfile pins), which means it cannot notice a new SDK major landing upstream. This job can, so an example that stops compiling is our problem before it is yours.
 - **A [regression gate](./tests/README.md) guards every bug class our end-to-end sweep found and fixed.** One offline test per bug class (enum-reliability, pipeline refs, dashboard `process` crashes, client request shapes, …) runs on every change, so a fixed bug can never quietly come back. No exercise ships unless it stays green.
 - **English is the single source of truth; Spanish is a reviewed translation.** A [staleness gate](./.translation/README.md) blocks any Spanish file from drifting out of date with its English source. You only ever hand-edit English.
 - **Mock names are fictional.** Companies like Nautilus Mutual and Leviathan Holdings are placeholders. No real customers appear anywhere.
 
 ## What you need
 
+**To build and test every exercise:**
+
 - Python 3.11+ and `pip`
 - Node 20+ and npm for the dashboard rungs (Tiers 4 and 6)
-- The [Huitzo CLI](https://github.com/Huitzo-Inc/huitzo-launcher) (one-line install above) — runs natively on Windows, macOS (Apple Silicon), Linux, and WSL2. The Studio **runner** (not the CLI) needs WSL2 on Windows.
-- The [`huitzo-sdk`](https://pypi.org/project/huitzo-sdk/) from PyPI (installed per pack)
-- Early access to a Huitzo Hub only to run the later rungs against a live Hub. Every exercise is built and tested locally without one.
+- The [`huitzo-sdk`](https://pypi.org/project/huitzo-sdk/) from PyPI (installed per pack, by the quickstart above)
+
+**Only when you want to publish or run against a live Hub:**
+
+- The [Huitzo CLI](https://github.com/Huitzo-Inc/huitzo-launcher) ([install commands](./docs/en/claude-code-setup.md#dont-have-the-cli-yet)) — runs natively on Windows, macOS (Apple Silicon), Linux, and WSL2. The Studio **runner** (not the CLI) needs WSL2 on Windows.
+- Early access to a Huitzo Hub. Every exercise is built and tested locally without one.
+
+**Optional:** [Claude Code](https://code.claude.com/docs/en/overview) plus the [Huitzo developer environment](./docs/en/claude-code-setup.md), if you want an AI agent that already knows the SDK.
 
 ## Contributing
 

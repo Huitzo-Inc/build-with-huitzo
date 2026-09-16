@@ -1,0 +1,70 @@
+name: sdk-drift
+
+# Why this exists, separate from test-web-and-clients.yml:
+#
+# The dashboard jobs run `npm ci`, which installs exactly what package-lock.json
+# pins. That is correct for reproducible CI, but it means a new major of
+# @huitzo/dashboard-sdk-react can ship and every job here stays green while the
+# examples quietly rot. The pack jobs do not have this problem: `pip install -e`
+# resolves `huitzo-sdk>=1.0.0` to the current release on every run.
+#
+# This workflow deliberately IGNORES the lockfile and installs the latest
+# published SDKs, so we find out that an example no longer compiles before a
+# learner does. `npm run build` is the job that matters: the offline tests mock
+# the SDK, so only `tsc --noEmit` actually type-checks against the real surface.
+#
+# It runs on a schedule, not on pull requests, so an upstream release never
+# blocks a contributor's PR. When it fails, fix the example and bump the pins.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays, 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  dashboards-against-latest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: [04-first-dashboard, 06-fullstack-triage]
+    defaults:
+      run:
+        working-directory: projects/${{ matrix.dir }}/dashboard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install the latest published dashboard SDKs
+        run: |
+          npm install
+          npm install @huitzo/dashboard-sdk@latest @huitzo/dashboard-sdk-react@latest
+      - name: Report the resolved versions
+        run: npm ls @huitzo/dashboard-sdk @huitzo/dashboard-sdk-react || true
+      - name: Typecheck and build against the latest SDK
+        run: npm run build
+      - name: Run the offline component tests
+        run: npm test
+
+  packs-against-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Test every pack against the latest published huitzo-sdk
+        run: |
+          set -e
+          shopt -s nullglob
+          for d in projects/*/pack; do
+            if [ -f "$d/pyproject.toml" ]; then
+              echo "::group::$d"
+              (cd "$d" && python -m pip install -e ".[dev]" \
+                 && python -m pip install --upgrade huitzo-sdk \
+                 && python -m pip show huitzo-sdk | grep -i '^version' \
+                 && python -m pytest -q)
+              echo "::endgroup::"
+            fi
+          done

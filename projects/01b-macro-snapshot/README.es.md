@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 5d885b41c5dbf6e12fec7315553ce8aa096b64f0e3f67c60ae9e498c2ecfca72 -->
+<!-- i18n-source-sha: d71c92543bbf257aac86cf188191f70a4901190a36432980b660c05d18b22446 -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 1: macro-snapshot
@@ -138,4 +138,6 @@ huitzo run @tu-org/macro-snapshot/country-snapshot --args '{"country": "USA", "i
 
 ## Siguiente
 
-Los packs de Nivel 2 agregan almacenamiento y pipelines de varios pasos. El mismo patrón, más superficie: primero la lógica determinista, el modelo solo para el juicio, y cada acceso externo declarado en la Policy Card.
+[Nivel 1: `01c-inbox-triage`](../01c-inbox-triage) es el siguiente peldaño: las reglas deterministas deciden qué tan urgente es un correo, el modelo solo redacta una respuesta y el pack nunca la envía. El mismo patrón, más superficie: primero la lógica determinista, el modelo solo para el juicio, y cada acceso externo declarado en la Policy Card.
+
+> ¿Vas a construir un dashboard? Este es el pack al que [Nivel 4: `04-first-dashboard`](../04-first-dashboard) le pone una interfaz. Puedes saltar allí ahora: no necesita nada de los Niveles 2 ni 3.

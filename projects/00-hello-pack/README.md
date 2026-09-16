@@ -108,4 +108,4 @@ huitzo run @your-org/hello-pack/hello --args '{"text": "Huitzo makes AI work whe
 
 ## Next
 
-Tier 1: [`doc-to-json`](../) reads a real document from storage and returns typed fields. Same pattern, more surface.
+Tier 1: [`01a-doc-to-json`](../01a-doc-to-json) reads a real document from storage and returns typed fields. Same pattern, more surface.

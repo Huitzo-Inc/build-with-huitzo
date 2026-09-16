@@ -172,4 +172,4 @@ Change one `as_of` to a date well in the past and run it again: the pick is the 
 
 ## Next
 
-You now have the governed pattern: deterministic decision, eval guardrail, audit, Policy Card. Higher tiers add storage, files, and multi-step pipelines on top of exactly this spine.
+You now have the governed pattern: deterministic decision, eval guardrail, audit, Policy Card. [Tier 3: `03-claims-pipeline`](../03-claims-pipeline) composes three typed commands into one governed pipeline, so a workflow becomes declarative data the executor type-checks rather than glue code. Higher tiers add storage, files, and multi-step pipelines on top of exactly this spine.
