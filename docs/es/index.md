@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 64cd2846d6501d6f2da7a6cbe6eafa1f0c3b8b82339ec3ec1e6e70ebebc8cf33 -->
+<!-- i18n-source-sha: 64a17ed06cc97c7c5bda80ef9961f11654c99303cd59d118d401a78c0566c025 -->
 
 # Ruta de aprendizaje
 
@@ -58,7 +58,7 @@ Para quienes construyen interfaces. Empieza con un dashboard en vez de un pack, 
 4. **[D3: `d3-design-system`](../../projects/d3-design-system)** (~30 min): la misma instantánea renderizada genérica y luego sobre tokens de marca, con las reglas de diseño convertidas en pruebas que rompen el build.
 5. *D4: `d4-slow-commands`* — en curso: `useStreamingCommand`, la ruta de `CommandReceipt` con `tasks.poll`, `useRealtime`, avisos y migas de pan de Hub.
 6. *D5: `d5-governed-ui`* — en curso: `TemplateFrame`, `ResultSection` y `EvidenceLink` renderizando una decisión retenida y su registro de auditoría. La respuesta en dashboard a `02-grounded-reco`.
-7. *D6: `d6-ship-it`* — en curso: validar, construir, publicar y versionar contra un contrato de comandos.
+7. **[D6: `d6-ship-it`](../../projects/d6-ship-it)** (~30 min): validar, construir, publicar y versionar contra un contrato de comandos, con un preflight sin dependencias que detecta versiones desincronizadas, un pack no declarado y un bundle que olvidó exportar `mount`.
 
 **Peldaño final:** ambas rutas se encuentran en [`06-fullstack-triage`](../../projects/06-fullstack-triage) (~1 hora): lee con un hook, escribe con el cliente, actualizaciones optimistas con reversión, y el contrato de comandos fast frente a encolados.
 

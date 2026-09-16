@@ -117,7 +117,7 @@ tested — **you never have to write Python to finish one.**
 | **D3** | [`d3-design-system`](./projects/d3-design-system) | The same snapshot rendered generic, then on brand tokens — with the design rules enforced by tests. | A Huitzo dashboard should look like Huitzo on first render, not after a redesign. |
 | D4 | `d4-slow-commands` | Streaming output, the queued-command path, Hub toasts and breadcrumbs. | *In progress.* |
 | D5 | `d5-governed-ui` | The interface for a decision that was withheld or escalated, with its evidence record. | *In progress.* |
-| D6 | `d6-ship-it` | Validate, build, publish, version against a command contract. | *In progress.* |
+| **D6** | [`d6-ship-it`](./projects/d6-ship-it) | Validate, build, publish — plus an offline preflight that catches what would otherwise fail after publishing. | Almost every failed publish is a mistake you could have caught on your laptop. |
 
 **Capstone:** both paths meet at [`06-fullstack-triage`](./projects/06-fullstack-triage) — a pack
 and a dashboard in one project, coupled only by the command API.

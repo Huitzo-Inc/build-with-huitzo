@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 9d4cd5b2a4876a62538a93da6b303325898374ffb7bc280f19882b90b2f43dc4 -->
+<!-- i18n-source-sha: b332bfb5042533def9d5c05f5564de6ccdb7c3c5f084e85b9e82d3fb0292d54c -->
 <!-- Este archivo es una traducción revisada de README.md (la fuente en inglés). No lo edites a mano para corregir contenido: actualiza el inglés y vuelve a generar. Ver .translation/README.md. -->
 
 # build-with-huitzo
@@ -120,7 +120,7 @@ pack, y cada peldaño te entrega el pack al que llama, ya escrito y ya probado:
 | **D3** | [`d3-design-system`](./projects/d3-design-system) | La misma instantánea renderizada genérica y luego sobre tokens de marca, con las reglas de diseño verificadas por pruebas. | Un dashboard de Huitzo debería verse como Huitzo en el primer renderizado, no tras un rediseño. |
 | D4 | `d4-slow-commands` | Salida en streaming, la ruta de comandos encolados, avisos y migas de pan de Hub. | *En curso.* |
 | D5 | `d5-governed-ui` | La interfaz de una decisión retenida o escalada, con su registro de evidencia. | *En curso.* |
-| D6 | `d6-ship-it` | Validar, construir, publicar y versionar contra un contrato de comandos. | *En curso.* |
+| **D6** | [`d6-ship-it`](./projects/d6-ship-it) | Validar, construir, publicar, más un preflight sin conexión que detecta lo que de otro modo fallaría tras publicar. | Casi todo despliegue fallido es un error que podrías haber detectado en tu portátil. |
 
 **Peldaño final:** ambas rutas se encuentran en [`06-fullstack-triage`](./projects/06-fullstack-triage):
 un pack y un dashboard en un proyecto, acoplados solo por la API de comandos.

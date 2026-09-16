@@ -56,7 +56,7 @@ For developers who build interfaces. It starts with a dashboard rather than a pa
 4. **[D3: `d3-design-system`](../../projects/d3-design-system)** (~30 min): the same snapshot rendered generic, then on brand tokens — and the design rules turned into tests that fail the build.
 5. *D4: `d4-slow-commands`* — in progress: `useStreamingCommand`, the `CommandReceipt` path with `tasks.poll`, `useRealtime`, Hub toasts and breadcrumbs.
 6. *D5: `d5-governed-ui`* — in progress: `TemplateFrame`, `ResultSection` and `EvidenceLink` rendering a withheld decision and its audit record. The dashboard answer to `02-grounded-reco`.
-7. *D6: `d6-ship-it`* — in progress: validate, build, publish, and version against a command contract.
+7. **[D6: `d6-ship-it`](../../projects/d6-ship-it)** (~30 min): validate, build, publish, and version against a command contract — with a dependency-free preflight that catches version drift, an undeclared pack, and a bundle that forgot to export `mount`.
 
 **Capstone:** both paths meet at [`06-fullstack-triage`](../../projects/06-fullstack-triage) (~1 hour) — read with a hook, write with the client, optimistic updates with revert, and the fast-versus-queued command contract.
 

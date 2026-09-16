@@ -51,6 +51,15 @@ jobs:
         run: npm run build
       - name: Run the offline component tests
         run: npm test
+      - name: Run the publish preflight, where a rung defines one
+        # D6 ships a preflight that inspects the built bundle and the manifest.
+        # Run it wherever it exists so it cannot rot; skip silently elsewhere.
+        run: |
+          if node -e "process.exit(require('./package.json').scripts?.preflight ? 0 : 1)"; then
+            node scripts/preflight.mjs
+          else
+            echo "no preflight script — skipping"
+          fi
 
   clients:
     runs-on: ubuntu-latest
