@@ -1,9 +1,9 @@
-<!-- i18n-source-sha: be61d910888e2da8fd10ddd6826776364b2f739f37e2454a1ba114a40bd6ca43 -->
+<!-- i18n-source-sha: d3386ba21200bfa413b6a16e777f2752614aa1325ee73bbe4f47edc91f61d246 -->
 <!-- Este archivo es una traducción revisada de README.md (la fuente en inglés). No lo edites a mano para corregir contenido: actualiza el inglés y vuelve a generar. Ver .translation/README.md. -->
 
 # build-with-huitzo
 
-**Aprende a construir sobre Huitzo creando Intelligence Packs reales, un peldaño a la vez.** Esta es la forma práctica, de copiar y pegar, para pasar de un "hola mundo" de cinco minutos a un despliegue gobernado y multiinquilino.
+**Aprende a construir sobre Huitzo creando cosas reales, un peldaño a la vez.** Esta es la forma práctica, de copiar y pegar, para pasar de un "hola mundo" de cinco minutos a un despliegue gobernado y multiinquilino, ya sea que construyas el Python que decide, el React que lo muestra, o ambos.
 
 [![tests](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/test-packs.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/test-packs.yml)
 [![regression-gate](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/regression-gate.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/regression-gate.yml)
@@ -17,9 +17,24 @@ Huitzo es el sistema operativo de IA para empresas reguladas. La unidad que cons
 
 > ⭐ **¿Primera vez? Lee primero [El momento "ajá"](./docs/es/the-aha-moment.md)** ([English](./docs/en/the-aha-moment.md)). Un pack gobernado, con el modelo cambiado de Claude a GPT‑4o modificando una sola línea de configuración — misma decisión, misma auditoría, misma Policy Card. Es la forma más rápida de *sentir por qué* construyes una solución regulada sobre Huitzo en lugar de cablear un SDK de LLM directamente.
 
-## Inicio rápido (unos cinco minutos)
+## Dos formas de entrar
 
-Python 3.11+ es lo único que necesitas. Sin cuenta, sin clave de API, sin CLI.
+Ambas rutas corren enteramente en tu portátil, no necesitan cuenta ni clave de API,
+y terminan en el mismo lugar. Elige la que coincida con lo que construyes.
+
+| | **Construir un pack** (Python) | **Construir un dashboard** (React) |
+|---|---|---|
+| **Escribes** | La lógica determinista que toma la decisión | La interfaz que una persona realmente usa |
+| **Necesitas** | Python 3.11+ | Node 20+ |
+| **Empieza en** | [`00-hello-pack`](./projects/00-hello-pack) — 5 min | [`d0-hello-dashboard`](./projects/d0-hello-dashboard) — 10 min |
+| **Ruta completa** | [La escalera](#la-escalera), Nivel 0 → 6 | [La ruta de dashboards](#la-ruta-de-dashboards), D0 → Nivel 6 |
+
+¿No estás seguro? Empieza por el pack. Es la más corta de las dos, y es aquello a lo
+que un dashboard llama.
+
+### Inicio rápido: tu primer pack (unos cinco minutos)
+
+Python 3.11+ es lo único que necesitas.
 
 ```bash
 # 1. Obtén los ejemplos y abre el primer pack
@@ -37,6 +52,22 @@ pytest                  # las pruebas sin conexión del pack (exactamente lo que
 Tres pruebas en verde significan que ya tienes un Intelligence Pack funcionando.
 Ahora lee [`00-hello-pack`](./projects/00-hello-pack) para ver qué acabas de
 ejecutar, y sigue la [ruta de aprendizaje](./docs/es/index.md).
+
+### Inicio rápido: tu primer dashboard (unos diez minutos)
+
+Node 20+ es lo único que necesitas: sin Python y sin pack.
+
+```bash
+git clone https://github.com/Huitzo-Inc/build-with-huitzo
+cd build-with-huitzo/projects/d0-hello-dashboard/dashboard
+
+npm install
+npm test                # 5 pruebas: el contrato de montaje de Hub
+npm run dev             # http://localhost:3000
+```
+
+Eso es un Dashboard de Huitzo real corriendo sin Hub alguno. Lee
+[`d0-hello-dashboard`](./projects/d0-hello-dashboard) para ver qué acaba de pasar.
 
 Todo en este repo corre sin conexión así. La CLI y una cuenta de Hub entran
 después, cuando quieras publicar — ver [Ejecuta en tu propio Hub](#ejecuta-en-tu-propio-hub).
@@ -75,9 +106,25 @@ Cada peldaño se apoya en los anteriores, así que el proyecto más difícil es 
 | **Nivel 6** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | Un pack y un dashboard en un proyecto, probados de principio a fin en tu portátil. | Fullstack: la API de comandos es el único contrato entre Python y la interfaz. |
 | Nivel 7 | `07-sovereign-suite` | Un sistema gobernado, multiinquilino y desplegable en cualquier entorno para un conglomerado. | **Próximamente** — dale una estrella al repo para seguir el avance. |
 
-> **¿Eres desarrollador de front-end?** No tienes que subir toda la escalera para
-> construir una interfaz. El Nivel 4 solo necesita [`01b-macro-snapshot`](./projects/01b-macro-snapshot)
-> como el pack al que llama, así que el camino corto es **Nivel 0 → `01b` → Nivel 4 → Nivel 6**.
+## La ruta de dashboards
+
+Si construyes interfaces, esta es tu ruta. Empieza con un dashboard en vez de un
+pack, y cada peldaño te entrega el pack al que llama, ya escrito y ya probado:
+**nunca tienes que escribir Python para terminar uno.**
+
+| Peldaño | Proyecto | Qué construirás | Qué demuestra |
+|---------|----------|-----------------|---------------|
+| **D0** | [`d0-hello-dashboard`](./projects/d0-hello-dashboard) | El módulo más pequeño que Hub puede montar. Sin pack, sin red. | El contrato `mount`/`unmount`: un dashboard es un módulo que Hub ejecuta, no un sitio web. |
+| **D1** | [`04-first-dashboard`](./projects/04-first-dashboard) | Un dashboard que llama a un comando real de un pack con `useCommand`, contra un Hub simulado. | El frontend es un consumidor delgado de decisiones que Python ya tomó. |
+| **D2** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | Leer con un hook, escribir con el cliente, actualizaciones optimistas con reversión. | La API de comandos es el único contrato entre Python y la interfaz. |
+
+Hay más peldaños en curso: formularios declarativos, el sistema de tokens de marca,
+comandos en streaming y encolados, y la interfaz gobernada que renderiza una decisión
+retenida y su registro de evidencia. Consulta [la ruta de aprendizaje](./docs/es/index.md)
+para el mapa.
+
+> **¿Ya conoces los packs?** El Nivel 4 es D1. Las dos rutas son el mismo repositorio
+> visto desde dos direcciones, y se encuentran en el Nivel 6.
 
 ## Soluciones de referencia reguladas
 

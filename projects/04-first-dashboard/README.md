@@ -13,7 +13,8 @@ The one idea to carry out of here: **the dashboard is a thin consumer of decisio
 ## Prerequisites
 
 - Node 20+ and npm
-- You have seen [Tier 1: macro-snapshot](../01b-macro-snapshot); this dashboard consumes its `country-snapshot` command.
+- Either route in: on the pack ladder you arrive from [Tier 3](../03-claims-pipeline); on the [dashboard path](../../docs/en/index.md#the-dashboard-path) this rung is **D1** and you arrive from [D0: `d0-hello-dashboard`](../d0-hello-dashboard), which covers the `mount`/`unmount` contract this README assumes.
+- Useful but not required: [`01b-macro-snapshot`](../01b-macro-snapshot), the pack this dashboard calls. You do not need to build it — the mock server stands in for it, and you never write Python here.
 - No Hub account is needed to build, test, or run this locally. A Hub with the pack deployed is needed only to publish it for real.
 
 ## Run it

@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: f29e3e01ff04a965c68f62557ea2f975517b022c4eba71d326416eecdaaf1e4f -->
+<!-- i18n-source-sha: ab79be08e9bca6b156b566be2c8ee46976fdec7938f3cd3cb4265040fe9aa034 -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 4: first-dashboard
@@ -16,7 +16,8 @@ La idea que hay que llevarse de aquí: **el dashboard es un consumidor delgado d
 ## Requisitos previos
 
 - Node 20+ y npm
-- Has visto el [Nivel 1: macro-snapshot](../01b-macro-snapshot); este dashboard consume su comando `country-snapshot`.
+- Cualquiera de las dos rutas de entrada: en la escalera de packs llegas desde el [Nivel 3](../03-claims-pipeline); en la [ruta de dashboards](../../docs/es/index.md#la-ruta-de-dashboards) este peldaño es **D1** y llegas desde [D0: `d0-hello-dashboard`](../d0-hello-dashboard), que cubre el contrato `mount`/`unmount` que este README da por sabido.
+- Útil pero no obligatorio: [`01b-macro-snapshot`](../01b-macro-snapshot), el pack al que llama este dashboard. No necesitas construirlo: el servidor simulado lo sustituye, y aquí nunca escribes Python.
 - No necesitas cuenta de Hub para construir, probar o ejecutar esto localmente. Un Hub con el pack desplegado solo hace falta para publicarlo de verdad.
 
 ## Ejecútalo

@@ -1,6 +1,6 @@
 # build-with-huitzo
 
-**Learn to build on Huitzo by shipping real Intelligence Packs, one rung at a time.** This is the hands-on, copy-paste way to go from a five-minute "hello world" to a governed, multi-tenant deployment.
+**Learn to build on Huitzo by shipping real things, one rung at a time.** This is the hands-on, copy-paste way to go from a five-minute "hello world" to a governed, multi-tenant deployment — whether you build the Python that decides, the React that shows it, or both.
 
 [![tests](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/test-packs.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/test-packs.yml)
 [![regression-gate](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/regression-gate.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/regression-gate.yml)
@@ -14,9 +14,24 @@ Huitzo is the AI operating system for regulated companies. The unit you build an
 
 > ⭐ **New here? Read [The aha moment](./docs/en/the-aha-moment.md) first** ([Español](./docs/es/the-aha-moment.md)). One governed pack, the model swapped from Claude to GPT‑4o by changing a single config line — same decision, same audit, same Policy Card. It is the fastest way to feel *why* you build a regulated solution on Huitzo instead of wiring an LLM SDK directly.
 
-## Quickstart (about five minutes)
+## Two ways in
 
-Python 3.11+ is the only thing you need. No account, no API key, no CLI.
+Both paths run entirely on your laptop, need no account and no API key, and end at
+the same place. Pick the one that matches what you build.
+
+| | **Build a pack** (Python) | **Build a dashboard** (React) |
+|---|---|---|
+| **You write** | The deterministic logic that owns the decision | The interface a person actually uses |
+| **You need** | Python 3.11+ | Node 20+ |
+| **Start at** | [`00-hello-pack`](./projects/00-hello-pack) — 5 min | [`d0-hello-dashboard`](./projects/d0-hello-dashboard) — 10 min |
+| **Full route** | [The ladder](#the-ladder), Tier 0 → 6 | [The dashboard path](#the-dashboard-path), D0 → Tier 6 |
+
+Not sure? Start with the pack. It is the shorter of the two, and it is the thing a
+dashboard calls.
+
+### Quickstart: your first pack (about five minutes)
+
+Python 3.11+ is the only thing you need.
 
 ```bash
 # 1. Get the examples and open the first pack
@@ -34,6 +49,22 @@ pytest                  # the pack's offline tests (exactly what CI runs)
 Three passing tests means you have a working Intelligence Pack. Now read
 [`00-hello-pack`](./projects/00-hello-pack) to see what you just ran, then follow
 the [learning path](./docs/en/index.md).
+
+### Quickstart: your first dashboard (about ten minutes)
+
+Node 20+ is the only thing you need — no Python, and no pack.
+
+```bash
+git clone https://github.com/Huitzo-Inc/build-with-huitzo
+cd build-with-huitzo/projects/d0-hello-dashboard/dashboard
+
+npm install
+npm test                # 5 tests: the Hub mount contract
+npm run dev             # http://localhost:3000
+```
+
+That is a real Huitzo Dashboard running with no Hub at all. Read
+[`d0-hello-dashboard`](./projects/d0-hello-dashboard) for what just happened.
 
 Everything in this repo runs offline like that. The CLI and a Hub account come in
 later, when you want to publish — see [Run on your own Hub](#run-on-your-own-hub).
@@ -72,9 +103,24 @@ Each rung composes the ones below it, so the hardest project is reachable rather
 | **Tier 6** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | A pack and a dashboard in one project, tested end to end on your laptop. | Fullstack: the command API is the single contract between Python and the UI. |
 | Tier 7 | `07-sovereign-suite` | A multi-tenant, deploy-anywhere governed system for a conglomerate. | **Coming soon** — star the repo to follow along. |
 
-> **Front-end developer?** You do not have to climb the whole ladder to build a
-> UI. Tier 4 only needs [`01b-macro-snapshot`](./projects/01b-macro-snapshot) as
-> the pack it calls, so the short path is **Tier 0 → `01b` → Tier 4 → Tier 6**.
+## The dashboard path
+
+If you build interfaces, this is your route. It starts with a dashboard rather than
+a pack, and every rung hands you the pack it calls, already written and already
+tested — **you never have to write Python to finish one.**
+
+| Rung | Project | What you will build | What it proves |
+|------|---------|---------------------|----------------|
+| **D0** | [`d0-hello-dashboard`](./projects/d0-hello-dashboard) | The smallest module Hub can mount. No pack, no network. | The `mount`/`unmount` contract: a dashboard is a module Hub runs, not a website. |
+| **D1** | [`04-first-dashboard`](./projects/04-first-dashboard) | A dashboard that calls a real pack command with `useCommand`, against a mock Hub. | The frontend is a thin consumer of decisions the Python already made. |
+| **D2** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | Reading with a hook, writing with the client, optimistic updates with revert. | The command API is the single contract between Python and the UI. |
+
+More rungs are in progress — declarative forms, the brand token system, streaming
+and queued commands, and the governed interface that renders a withheld decision
+and its evidence record. See [the learning path](./docs/en/index.md) for the map.
+
+> **Already know packs?** Tier 4 is D1. The two paths are the same repository seen
+> from two directions, and they meet at Tier 6.
 
 ## Regulated reference solutions
 

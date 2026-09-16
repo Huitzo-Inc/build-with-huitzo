@@ -8,6 +8,11 @@ Every rung below builds and tests on your laptop, with no Hub account and no API
 
 - **[Build with an AI agent](./claude-code-setup.md)**: install the Huitzo developer environment for Claude Code. It gives your agent verified SDK references, the docs-first workflow, and reviewer agents, so the code it writes matches the patterns in this repo. Optional, but it is the fastest way to go from these examples to your own pack.
 
+## Pick a path
+
+- **Build a pack** (Python) — the ladder below, Tier 0 through Tier 6. Start here if you are not sure.
+- **Build a dashboard** (React) — [the dashboard path](#the-dashboard-path), D0 onward. No Python required.
+
 ## Start here
 
 1. **[Tier 0: hello-pack](../../projects/00-hello-pack)** (~5 min): text in, model call, typed output. Do this first.
@@ -31,7 +36,7 @@ Every rung below builds and tests on your laptop, with no Hub account and no API
 
 8. **[`04-first-dashboard`](../../projects/04-first-dashboard)**: a React dashboard that calls a pack from the browser with `useCommand`. The frontend is a thin consumer of decisions the pack already made. Runs locally with no Hub.
 
-> **Front-end developer?** You do not have to climb the whole ladder first. This rung only needs [`01b-macro-snapshot`](../../projects/01b-macro-snapshot) as the pack it calls, so the short path to a working UI is **Tier 0 → `01b` → Tier 4 → Tier 6**.
+> **Front-end developer?** You do not have to climb the whole ladder first. See [the dashboard path](#the-dashboard-path) below — this rung is D1 on it.
 
 ## Tier 5: interact with huitzo.ai from outside (~40 minutes)
 
@@ -40,6 +45,18 @@ Every rung below builds and tests on your laptop, with no Hub account and no API
 ## Tier 6: fullstack (~1 hour)
 
 10. **[`06-fullstack-triage`](../../projects/06-fullstack-triage)**: a pack and a dashboard in one project, coupled only by the command API and tested end to end on your laptop.
+
+## The dashboard path
+
+For developers who build interfaces. It starts with a dashboard rather than a pack, and every rung hands you the pack it calls, already written and already tested — **you never write Python to finish one.**
+
+1. **[D0: `d0-hello-dashboard`](../../projects/d0-hello-dashboard)** (~10 min): the smallest module Hub can mount. No pack, no network, no command call. The `mount`/`unmount` contract.
+2. **[D1: `04-first-dashboard`](../../projects/04-first-dashboard)** (~40 min): call a real pack command with `useCommand`, against a mock Hub that runs on your laptop.
+3. **[D2: `06-fullstack-triage`](../../projects/06-fullstack-triage)** (~1 hour): read with a hook, write with the client, optimistic updates with revert, and the fast-versus-queued command contract.
+
+Rungs in progress, in order: declarative forms (`Form`, `FormFieldSpec`), the brand token system and `hz-*` primitives, streaming and queued commands (`useStreamingCommand`, `tasks.poll`), and the governed interface — `TemplateFrame`, `ResultSection` and `EvidenceLink` rendering a withheld decision and its audit record.
+
+Both paths end at Tier 6. They are the same repository seen from two directions.
 
 ## Regulated reference solutions
 

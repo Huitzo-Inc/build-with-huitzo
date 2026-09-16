@@ -1,0 +1,23 @@
+schema_version: 1
+
+# A Dashboard is distributed and governed like a pack, but it runs in the browser
+# inside Hub. This is the smallest valid manifest: identity, and how to build it.
+dashboard:
+  name: hello-dashboard
+  namespace: reef
+  version: 0.1.0
+  description: "The smallest Huitzo Dashboard: it mounts inside Hub and reads its own context."
+  visibility: private
+  category: utilities
+  icon: "sparkles"
+
+# This rung calls no pack, so it depends on none. That is legal, and it is the
+# reason D0 runs with nothing else installed. Rung D1 adds the first dependency.
+pack_dependencies: []
+
+# Built by `huitzo dashboard build` (which runs `npm run build`) into dist/main.js,
+# the single ES module that exports mount() / unmount().
+build:
+  framework: react
+  entry_point: main.js
+  min_sdk_version: "6.0.0"

@@ -22,15 +22,31 @@ on:
   workflow_dispatch:
 
 jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      dashboards: ${{ steps.find.outputs.dashboards }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: find
+        name: Find every dashboard in the repo
+        run: |
+          set -euo pipefail
+          dirs=$(find projects -mindepth 2 -maxdepth 2 -type d -name dashboard \
+                 | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "dashboards=$dirs" >> "$GITHUB_OUTPUT"
+          echo "Discovered: $dirs"
+
   dashboards-against-latest:
+    needs: discover
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        dir: [04-first-dashboard, 06-fullstack-triage]
+        dir: ${{ fromJSON(needs.discover.outputs.dashboards) }}
     defaults:
       run:
-        working-directory: projects/${{ matrix.dir }}/dashboard
+        working-directory: ${{ matrix.dir }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

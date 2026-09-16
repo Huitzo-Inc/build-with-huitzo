@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: ad8061979d497e1eb35d550b7ccae4add38e019ce3ee0352faf3a37a6908e888 -->
+<!-- i18n-source-sha: 3e1807ca988b215bb37c4c3401b4b792fe09d59ca88252f92030dfeca39be86c -->
 
 # Ruta de aprendizaje
 
@@ -9,6 +9,11 @@ Cada peldaño de abajo se construye y se prueba en tu portátil, sin cuenta de H
 ## Antes de empezar (opcional, cinco minutos)
 
 - **[Construye con un agente de IA](./claude-code-setup.md)**: instala el entorno de desarrollo de Huitzo para Claude Code. Le da a tu agente referencias verificadas del SDK, el flujo de trabajo docs-first y agentes revisores, para que el código que escriba coincida con los patrones de este repo. Es opcional, pero es la vía más rápida para pasar de estos ejemplos a tu propio pack.
+
+## Elige una ruta
+
+- **Construir un pack** (Python) — la escalera de abajo, del Nivel 0 al Nivel 6. Empieza aquí si no estás seguro.
+- **Construir un dashboard** (React) — [la ruta de dashboards](#la-ruta-de-dashboards), desde D0. No hace falta Python.
 
 ## Empieza aquí
 
@@ -33,7 +38,7 @@ Cada peldaño de abajo se construye y se prueba en tu portátil, sin cuenta de H
 
 8. **[`04-first-dashboard`](../../projects/04-first-dashboard)**: un dashboard de React que llama a un pack desde el navegador con `useCommand`. El frontend es un consumidor delgado de decisiones que el pack ya tomó. Corre localmente sin Hub.
 
-> **¿Eres desarrollador de front-end?** No tienes que subir toda la escalera primero. Este peldaño solo necesita [`01b-macro-snapshot`](../../projects/01b-macro-snapshot) como el pack al que llama, así que el camino corto hasta una interfaz funcionando es **Nivel 0 → `01b` → Nivel 4 → Nivel 6**.
+> **¿Eres desarrollador de front-end?** No tienes que subir toda la escalera primero. Consulta [la ruta de dashboards](#la-ruta-de-dashboards) más abajo: este peldaño es D1 en ella.
 
 ## Nivel 5: interactúa con huitzo.ai desde fuera (~40 minutos)
 
@@ -42,6 +47,18 @@ Cada peldaño de abajo se construye y se prueba en tu portátil, sin cuenta de H
 ## Nivel 6: fullstack (~1 hora)
 
 10. **[`06-fullstack-triage`](../../projects/06-fullstack-triage)**: un pack y un dashboard en un proyecto, acoplados solo por la API de comandos y probados de principio a fin en tu portátil.
+
+## La ruta de dashboards
+
+Para quienes construyen interfaces. Empieza con un dashboard en vez de un pack, y cada peldaño te entrega el pack al que llama, ya escrito y ya probado: **nunca escribes Python para terminar uno.**
+
+1. **[D0: `d0-hello-dashboard`](../../projects/d0-hello-dashboard)** (~10 min): el módulo más pequeño que Hub puede montar. Sin pack, sin red, sin llamada a comandos. El contrato `mount`/`unmount`.
+2. **[D1: `04-first-dashboard`](../../projects/04-first-dashboard)** (~40 min): llama a un comando real de un pack con `useCommand`, contra un Hub simulado que corre en tu portátil.
+3. **[D2: `06-fullstack-triage`](../../projects/06-fullstack-triage)** (~1 hora): lee con un hook, escribe con el cliente, actualizaciones optimistas con reversión, y el contrato de comandos fast frente a encolados.
+
+Peldaños en curso, en orden: formularios declarativos (`Form`, `FormFieldSpec`), el sistema de tokens de marca y las primitivas `hz-*`, comandos en streaming y encolados (`useStreamingCommand`, `tasks.poll`), y la interfaz gobernada: `TemplateFrame`, `ResultSection` y `EvidenceLink` renderizando una decisión retenida y su registro de auditoría.
+
+Ambas rutas terminan en el Nivel 6. Son el mismo repositorio visto desde dos direcciones.
 
 ## Soluciones de referencia para sectores regulados
 
