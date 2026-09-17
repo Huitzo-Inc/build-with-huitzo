@@ -88,13 +88,13 @@ const onApprove = async (id, approve) => {
 `client.commands.execute()` does not always hand you a result. A **fast**-queue
 command runs inline and returns `CommandResult<T>` (HTTP 200). A **medium** or
 **long**-queue command is handed to a worker and returns a `CommandReceipt`
-(HTTP 202) — a `task_id` to poll, *not* the output. The SDK makes that explicit in
+(HTTP 202): a `task_id` to poll, *not* the output. The SDK makes that explicit in
 the type, so the compiler forces you to decide which you are dealing with:
 
 ```tsx
 const res = await client.commands.execute<ClassifyResult>(CLASSIFY_EXPENSE, {...});
 if (isCommandReceipt(res)) {
-  throw new Error(`queued as ${res.task_id} — poll client.tasks.get() for the result`);
+  throw new Error(`queued as ${res.task_id}; poll client.tasks.get() for the result`);
 }
 return res.result.category;   // narrowed to CommandResult<ClassifyResult>
 ```

@@ -23,7 +23,7 @@ agent from inventing an SDK that does not exist.
 | **Reference skills** | Exact, version-pinned API surfaces for `huitzo-sdk`, `huitzo.yaml`, the dashboard SDK, the CLI, and the platform REST API. The agent reads the real signature instead of guessing. |
 | **Workflow skills** | `/draft-spec`, `/draft-docs`, `/add-command`, `/scaffold-dashboard`, `/test-pack`, `/validate-pack`, `/test-dashboard`, `/dashboard-dev`, `/sandbox`, `/publish`. |
 | **Agents** | `pack-developer` and `dashboard-developer` to build; `pack-reviewer` and `dashboard-reviewer` to grade the result against a checklist; `docs-writer`, `spec-architect`. |
-| **Path-scoped rules** | Rules that load only when a matching file is edited — SDK patterns, error handling, testing, the manifest, traceability, Hub contract, React patterns, dashboard design. |
+| **Path-scoped rules** | Rules that load only when a matching file is edited: SDK patterns, error handling, testing, the manifest, traceability, Hub contract, React patterns, dashboard design. |
 | **Safety hooks** | A blocking secrets scan on writes, plus non-blocking nudges for missing traceability headers, hex colours in dashboards, a hard-coded `model=` on `ctx.llm`, and `dangerouslySetInnerHTML`. |
 
 That `model=` nudge is the repo's whole thesis enforced at the keystroke: a pack
@@ -65,7 +65,7 @@ cd projects/00-hello-pack/pack
 
 Then ask the agent to add a second command. Watch it read the `huitzo-sdk`
 reference skill before it writes, scaffold the args model and the test alongside
-the command, and register it in `huitzo.yaml` — the same shape as the command
+the command, and register it in `huitzo.yaml`, the same shape as the command
 that is already there.
 
 ## Or let the Huitzo CLI seed it
@@ -127,7 +127,7 @@ Do not confuse them:
   the *platform* documentation into your user-level Claude settings.
 
 A third, `@huitzo/dashboard-mcp`, exposes a dashboard's commands, primitives, and
-brand tokens to any MCP-aware client — useful on the dashboard rungs.
+brand tokens to any MCP-aware client, useful on the dashboard rungs.
 
 ## Next
 

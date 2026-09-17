@@ -4,7 +4,7 @@
 
 Every other rung ends with "run it locally." This one is about the step after that: getting a dashboard onto a real Hub without discovering the problem once it is already published.
 
-The one idea to carry out of here: **almost every failed publish is a mistake you could have caught offline.** A version that drifted between two files, a command you call but never declared, a bundle that compiled perfectly and forgot to export the one function Hub calls. None of those need a Hub account to find — they need someone to look. `scripts/preflight.mjs` is that someone.
+The one idea to carry out of here: **almost every failed publish is a mistake you could have caught offline.** A version that drifted between two files, a command you call but never declared, a bundle that compiled perfectly and forgot to export the one function Hub calls. None of those need a Hub account to find; they need someone to look. `scripts/preflight.mjs` is that someone.
 
 **You will learn:** what the dashboard manifest actually promises Hub, why `pack_dependencies` is not documentation, the publish lifecycle (`validate` → `build` → `publish`), how to version against a command contract, and how to write a preflight you can copy into every project you ship.
 
@@ -21,7 +21,7 @@ The one idea to carry out of here: **almost every failed publish is a mistake yo
 ```bash
 cd dashboard
 npm install
-npm test            # 8 tests — the view, including the governed states
+npm test            # 8 tests: the view, including the governed states
 npm run preflight   # builds, then checks everything publish would reject
 ```
 
@@ -56,7 +56,7 @@ That warning is the first thing you fix when this becomes your dashboard rather 
 
 **2. The version is semver.** Hub orders releases by it. `v1` cannot be ranked.
 
-**3. `package.json` and the manifest agree on that version.** They each carry one, and they drift the first time somebody bumps one and forgets the other. Then the version Hub shows is not the version you built — and you will not notice, because nothing errors.
+**3. `package.json` and the manifest agree on that version.** They each carry one, and they drift the first time somebody bumps one and forgets the other. Then the version Hub shows is not the version you built, and you will not notice, because nothing errors.
 
 **4. Every command the code calls has its pack declared.** This is the check that earns the script:
 
@@ -79,7 +79,7 @@ for (const fn of ["mount", "unmount"]) {
 
 **7. You are publishing to an org you own.** A warning while `namespace: reef`.
 
-Every one of these was verified by breaking it on purpose and watching the right check fail — a gate nobody has seen fail is not a gate.
+Every one of these was verified by breaking it on purpose and watching the right check fail. A gate nobody has seen fail is not a gate.
 
 ## Then publish
 
@@ -99,18 +99,18 @@ Then open it from Hub at `https://hub.huitzo.com/d/ship-it`. There are no separa
 
 The dashboard and the pack ship on their own cadences, coupled only by the command id and the result shape. That gives you a simple rule:
 
-- The pack changes its **internals** — nothing to do. That is the whole point of the contract.
-- The pack **adds** an optional field — nothing to do. Your `types.ts` is a subset; extra fields are ignored.
-- The pack **renames or removes** a field you render, or changes a command id — that is a breaking change on the contract. Bump the dashboard and pin `pack_dependencies` to a version range that excludes the old pack.
+- The pack changes its **internals**: nothing to do. That is the whole point of the contract.
+- The pack **adds** an optional field: nothing to do. Your `types.ts` is a subset; extra fields are ignored.
+- The pack **renames or removes** a field you render, or changes a command id: that is a breaking change on the contract. Bump the dashboard and pin `pack_dependencies` to a version range that excludes the old pack.
 
 `version: "*"` in `pack_dependencies` is fine for an example. For anything real, pin it, because `"*"` means "any version, including the one that broke you."
 
 ## Why the UI here shows governance
 
-The panel renders a `recommend` result from [`02-grounded-reco`](../02-grounded-reco), and it treats `withheld` and `escalated` as **first-class states rather than errors**. A governed pack that withholds a result has not failed — it has done exactly its job, and the interface has to say so instead of showing a blank panel or a red toast.
+The panel renders a `recommend` result from [`02-grounded-reco`](../02-grounded-reco), and it treats `withheld` and `escalated` as **first-class states rather than errors**. A governed pack that withholds a result has not failed; it has done exactly its job, and the interface has to say so instead of showing a blank panel or a red toast.
 
 That is a preview of D5, which builds the whole governed interface: `TemplateFrame`, `ResultSection`, and an `EvidenceLink` to the audit record.
 
 ## Next
 
-That is Phase 1 of the dashboard track. The remaining rungs — declarative forms, streaming and queued commands, and the governed interface — are listed on [the learning path](../../docs/en/index.md#the-dashboard-path). The capstone both paths share is [`06-fullstack-triage`](../06-fullstack-triage).
+That is Phase 1 of the dashboard track. The remaining rungs (declarative forms, streaming and queued commands, and the governed interface) are listed on [the learning path](../../docs/en/index.md#the-dashboard-path). The capstone both paths share is [`06-fullstack-triage`](../06-fullstack-triage).

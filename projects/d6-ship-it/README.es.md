@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 948dd165c2dd25bd1c6e150ca9c107e1f73e09f47ed233392413ad9daee5546b -->
+<!-- i18n-source-sha: 3cac499bf86d4fdc6e74667ddfe1264d1d1f1434c90601bd683c67d344eac394 -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Dashboard D6: ship-it
@@ -24,7 +24,7 @@ La idea que hay que llevarse de aquí: **casi todo despliegue fallido es un erro
 ```bash
 cd dashboard
 npm install
-npm test            # 8 pruebas — la vista, incluidos los estados gobernados
+npm test            # 8 pruebas: la vista, incluidos los estados gobernados
 npm run preflight   # construye y luego comprueba todo lo que publish rechazaría
 ```
 

@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: b332bfb5042533def9d5c05f5564de6ccdb7c3c5f084e85b9e82d3fb0292d54c -->
+<!-- i18n-source-sha: 3b182d04950fb689d0111d482b1ee3578da9e95b7c8bafd0324cdde74848de3d -->
 <!-- Este archivo es una traducción revisada de README.md (la fuente en inglés). No lo edites a mano para corregir contenido: actualiza el inglés y vuelve a generar. Ver .translation/README.md. -->
 
 # build-with-huitzo
@@ -26,7 +26,7 @@ y terminan en el mismo lugar. Elige la que coincida con lo que construyes.
 |---|---|---|
 | **Escribes** | La lógica determinista que toma la decisión | La interfaz que una persona realmente usa |
 | **Necesitas** | Python 3.11+ | Node 20+ |
-| **Empieza en** | [`00-hello-pack`](./projects/00-hello-pack) — 5 min | [`d0-hello-dashboard`](./projects/d0-hello-dashboard) — 10 min |
+| **Empieza en** | [`00-hello-pack`](./projects/00-hello-pack), 5 min | [`d0-hello-dashboard`](./projects/d0-hello-dashboard), 10 min |
 | **Ruta completa** | [La escalera](#la-escalera), Nivel 0 → 6 | [La ruta de dashboards](#la-ruta-de-dashboards), D0 → Nivel 6 |
 
 ¿No estás seguro? Empieza por el pack. Es la más corta de las dos, y es aquello a lo
@@ -70,7 +70,7 @@ Eso es un Dashboard de Huitzo real corriendo sin Hub alguno. Lee
 [`d0-hello-dashboard`](./projects/d0-hello-dashboard) para ver qué acaba de pasar.
 
 Todo en este repo corre sin conexión así. La CLI y una cuenta de Hub entran
-después, cuando quieras publicar — ver [Ejecuta en tu propio Hub](#ejecuta-en-tu-propio-hub).
+después, cuando quieras publicar. Ver [Ejecuta en tu propio Hub](#ejecuta-en-tu-propio-hub).
 
 ## Constrúyelo con un agente de IA (opcional, cinco minutos)
 
@@ -104,7 +104,7 @@ Cada peldaño se apoya en los anteriores, así que el proyecto más difícil es 
 | **Nivel 4** | [`04-first-dashboard`](./projects/04-first-dashboard) | Un dashboard de React que llama a un pack desde el navegador. | El frontend: una app del Dashboard SDK es un consumidor delgado de decisiones que el pack ya tomó. |
 | **Nivel 5** | [`05-pack-from-outside`](./projects/05-pack-from-outside) | Maneja un pack desplegado por REST, la CLI, MCP alojado y CI. | Un solo modelo mental, cuatro puertas: cómo interactuar con huitzo.ai desde cualquier lugar. |
 | **Nivel 6** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | Un pack y un dashboard en un proyecto, probados de principio a fin en tu portátil. | Fullstack: la API de comandos es el único contrato entre Python y la interfaz. |
-| Nivel 7 | `07-sovereign-suite` | Un sistema gobernado, multiinquilino y desplegable en cualquier entorno para un conglomerado. | **Próximamente** — dale una estrella al repo para seguir el avance. |
+| Nivel 7 | `07-sovereign-suite` | Un sistema gobernado, multiinquilino y desplegable en cualquier entorno para un conglomerado. | **Próximamente.** Dale una estrella al repo para seguir el avance. |
 
 ## La ruta de dashboards
 
@@ -197,7 +197,7 @@ partner:
 
 **Solo cuando quieras publicar o ejecutar contra un Hub real:**
 
-- La [CLI de Huitzo](https://github.com/Huitzo-Inc/huitzo-launcher) ([comandos de instalación](./docs/es/claude-code-setup.md#aún-no-tienes-la-cli)) — funciona de forma nativa en Windows, macOS (Apple Silicon), Linux y WSL2. El **runner** de Studio (no la CLI) necesita WSL2 en Windows.
+- La [CLI de Huitzo](https://github.com/Huitzo-Inc/huitzo-launcher) ([comandos de instalación](./docs/es/claude-code-setup.md#aún-no-tienes-la-cli)). Funciona de forma nativa en Windows, macOS (Apple Silicon), Linux y WSL2. El **runner** de Studio (no la CLI) necesita WSL2 en Windows.
 - Acceso anticipado a un Huitzo Hub. Cada ejercicio se construye y se prueba localmente sin uno.
 
 **Opcional:** [Claude Code](https://code.claude.com/docs/en/overview) más el [entorno de desarrollo de Huitzo](./docs/es/claude-code-setup.md), si quieres un agente de IA que ya conozca el SDK.

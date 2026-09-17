@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: ab79be08e9bca6b156b566be2c8ee46976fdec7938f3cd3cb4265040fe9aa034 -->
+<!-- i18n-source-sha: c9f41da181be89acd8e3a703f19408bb14b004584e8eb5b81627eb23b6e2ddfa -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 4: first-dashboard
@@ -147,7 +147,7 @@ Este peldaño usa a propósito la porción más pequeña posible del SDK. Hay mu
 
 El único hook que *no* está implementado es `useConnectionStatus`: llamarlo lanza un error claro que te remite a `useRealtime()` (la capa WebSocket de eventos de pack que necesita está diferida a una versión futura del backend).
 
-Hay dos paquetes complementarios publicados y usables: [`@huitzo/dashboard-primitives`](https://www.npmjs.com/package/@huitzo/dashboard-primitives) (un registro de componentes `hz-*` para copiar, estilo shadcn, fijados por hash) y [`@huitzo/dashboard-mcp`](https://www.npmjs.com/package/@huitzo/dashboard-mcp) (un servidor MCP que expone los comandos, primitivas y tokens de marca de tu dashboard a un agente de IA — ver [Construye con un agente de IA](../../docs/es/claude-code-setup.md)).
+Hay dos paquetes complementarios publicados y usables: [`@huitzo/dashboard-primitives`](https://www.npmjs.com/package/@huitzo/dashboard-primitives) (un registro de componentes `hz-*` para copiar, estilo shadcn, fijados por hash) y [`@huitzo/dashboard-mcp`](https://www.npmjs.com/package/@huitzo/dashboard-mcp) (un servidor MCP que expone los comandos, primitivas y tokens de marca de tu dashboard a un agente de IA; ver [Construye con un agente de IA](../../docs/es/claude-code-setup.md)).
 
 ## Ejecútalo de verdad
 

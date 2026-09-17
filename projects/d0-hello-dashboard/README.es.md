@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 495020f191d286ec747f4c6224fce0cc8c3e827abca3ade3fb65d7620f3b16eb -->
+<!-- i18n-source-sha: 3cd446a3a386f438689c047ce3088cecfc2a2d7c6d4c0f83652ed19d1d0c3b68 -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Dashboard D0: hello-dashboard

@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 6ac00d88a8f0f77ccbcaee8f20c67835de882186d618d320bcc0c33f9e4bd01b -->
+<!-- i18n-source-sha: 5f075698b9d3d3b884cb1387f247646634e94322b1bec8090d1770444653585c -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 6: fullstack-triage
@@ -97,7 +97,7 @@ en el tipo, así que el compilador te obliga a decidir con cuál estás tratando
 ```tsx
 const res = await client.commands.execute<ClassifyResult>(CLASSIFY_EXPENSE, {...});
 if (isCommandReceipt(res)) {
-  throw new Error(`encolado como ${res.task_id} — consulta client.tasks.get() para el resultado`);
+  throw new Error(`encolado como ${res.task_id}; consulta client.tasks.get() para el resultado`);
 }
 return res.result.category;   // estrechado a CommandResult<ClassifyResult>
 ```

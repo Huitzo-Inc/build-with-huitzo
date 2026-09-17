@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: d71c92543bbf257aac86cf188191f70a4901190a36432980b660c05d18b22446 -->
+<!-- i18n-source-sha: 4da881b4718614aa0d381a519d8cbdb801cbbf82dc9d8772c7721986752951cd -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 1: macro-snapshot

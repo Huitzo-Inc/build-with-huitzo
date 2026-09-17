@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 34a68e00137f2b2d98248e1ab060b6ca0ee677085de0c343e21781070204e4c2 -->
+<!-- i18n-source-sha: 5e7dc3762c5f2eeea31b130ef1f7f8589b0b35a09e52e374bc2bf00f8076740d -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Dashboard D3: design-system
@@ -27,7 +27,7 @@ cd dashboard
 npm install
 npm test            # 14 pruebas, 9 de ellas son las reglas de diseño mismas
 npm run build
-npm run dev         # http://localhost:3000 — luego usa el conmutador Branded / Generic
+npm run dev         # http://localhost:3000, luego usa el conmutador Branded / Generic
 ```
 
 ## Qué hay dentro

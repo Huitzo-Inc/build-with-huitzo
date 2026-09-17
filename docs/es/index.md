@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 64a17ed06cc97c7c5bda80ef9961f11654c99303cd59d118d401a78c0566c025 -->
+<!-- i18n-source-sha: e0bb3a979d11aef575c9bf8d56326b4d1fb4d140edd4898ecef0a01c321ebc2d -->
 
 # Ruta de aprendizaje
 
@@ -12,8 +12,8 @@ Cada peldaño de abajo se construye y se prueba en tu portátil, sin cuenta de H
 
 ## Elige una ruta
 
-- **Construir un pack** (Python) — la escalera de abajo, del Nivel 0 al Nivel 6. Empieza aquí si no estás seguro.
-- **Construir un dashboard** (React) — [la ruta de dashboards](#la-ruta-de-dashboards), desde D0. No hace falta Python.
+- **Construir un pack** (Python): la escalera de abajo, del Nivel 0 al Nivel 6. Empieza aquí si no estás seguro.
+- **Construir un dashboard** (React): [la ruta de dashboards](#la-ruta-de-dashboards), desde D0. No hace falta Python.
 
 ## Empieza aquí
 
@@ -54,10 +54,10 @@ Para quienes construyen interfaces. Empieza con un dashboard en vez de un pack, 
 
 1. **[D0: `d0-hello-dashboard`](../../projects/d0-hello-dashboard)** (~10 min): el módulo más pequeño que Hub puede montar. Sin pack, sin red, sin llamada a comandos. El contrato `mount`/`unmount`.
 2. **[D1: `04-first-dashboard`](../../projects/04-first-dashboard)** (~40 min): llama a un comando real de un pack con `useCommand`, contra un Hub simulado que corre en tu portátil.
-3. *D2: `d2-forms-and-input`* — en curso: formularios tipados desde un `FormFieldSpec` declarativo, con los errores de validación del pack cayendo en los campos correctos.
+3. *D2: `d2-forms-and-input`* (en curso): formularios tipados desde un `FormFieldSpec` declarativo, con los errores de validación del pack cayendo en los campos correctos.
 4. **[D3: `d3-design-system`](../../projects/d3-design-system)** (~30 min): la misma instantánea renderizada genérica y luego sobre tokens de marca, con las reglas de diseño convertidas en pruebas que rompen el build.
-5. *D4: `d4-slow-commands`* — en curso: `useStreamingCommand`, la ruta de `CommandReceipt` con `tasks.poll`, `useRealtime`, avisos y migas de pan de Hub.
-6. *D5: `d5-governed-ui`* — en curso: `TemplateFrame`, `ResultSection` y `EvidenceLink` renderizando una decisión retenida y su registro de auditoría. La respuesta en dashboard a `02-grounded-reco`.
+5. *D4: `d4-slow-commands`* (en curso): `useStreamingCommand`, la ruta de `CommandReceipt` con `tasks.poll`, `useRealtime`, avisos y migas de pan de Hub.
+6. *D5: `d5-governed-ui`* (en curso): `TemplateFrame`, `ResultSection` y `EvidenceLink` renderizando una decisión retenida y su registro de auditoría. La respuesta en dashboard a `02-grounded-reco`.
 7. **[D6: `d6-ship-it`](../../projects/d6-ship-it)** (~30 min): validar, construir, publicar y versionar contra un contrato de comandos, con un preflight sin dependencias que detecta versiones desincronizadas, un pack no declarado y un bundle que olvidó exportar `mount`.
 
 **Peldaño final:** ambas rutas se encuentran en [`06-fullstack-triage`](../../projects/06-fullstack-triage) (~1 hora): lee con un hook, escribe con el cliente, actualizaciones optimistas con reversión, y el contrato de comandos fast frente a encolados.

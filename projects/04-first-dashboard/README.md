@@ -14,7 +14,7 @@ The one idea to carry out of here: **the dashboard is a thin consumer of decisio
 
 - Node 20+ and npm
 - Either route in: on the pack ladder you arrive from [Tier 3](../03-claims-pipeline); on the [dashboard path](../../docs/en/index.md#the-dashboard-path) this rung is **D1** and you arrive from [D0: `d0-hello-dashboard`](../d0-hello-dashboard), which covers the `mount`/`unmount` contract this README assumes.
-- Useful but not required: [`01b-macro-snapshot`](../01b-macro-snapshot), the pack this dashboard calls. You do not need to build it — the mock server stands in for it, and you never write Python here.
+- Useful but not required: [`01b-macro-snapshot`](../01b-macro-snapshot), the pack this dashboard calls. You do not need to build it: the mock server stands in for it, and you never write Python here.
 - No Hub account is needed to build, test, or run this locally. A Hub with the pack deployed is needed only to publish it for real.
 
 ## Run it
@@ -142,9 +142,9 @@ Point `apiUrl` at the bundled `mock-server.mjs`, which answers the command call 
 
 This rung deliberately uses the smallest possible slice of the SDK. There is a lot more in the box, and it all works today over the Hub mount event bus: `useRealtime`, `useHubActions`, `useHubBreadcrumbs`, `usePacks`, `useLocale`, `useStreamingCommand` (token-by-token output), plus the `Form`, `Dashboard`, `DashboardTile` and `TemplateFrame` components. This first dashboard simply does not need them yet.
 
-The one hook that is *not* implemented is `useConnectionStatus` — calling it raises a clear error pointing you to `useRealtime()` instead (the pack-event WebSocket layer it needs is deferred to a future backend release).
+The one hook that is *not* implemented is `useConnectionStatus`. Calling it raises a clear error pointing you to `useRealtime()` instead (the pack-event WebSocket layer it needs is deferred to a future backend release).
 
-Two companion packages are published and usable: [`@huitzo/dashboard-primitives`](https://www.npmjs.com/package/@huitzo/dashboard-primitives) (a copy-in, shadcn-style registry of hash-pinned `hz-*` components) and [`@huitzo/dashboard-mcp`](https://www.npmjs.com/package/@huitzo/dashboard-mcp) (an MCP server that exposes your dashboard's commands, primitives and brand tokens to an AI coding agent — see [Build with an AI agent](../../docs/en/claude-code-setup.md)).
+Two companion packages are published and usable: [`@huitzo/dashboard-primitives`](https://www.npmjs.com/package/@huitzo/dashboard-primitives) (a copy-in, shadcn-style registry of hash-pinned `hz-*` components) and [`@huitzo/dashboard-mcp`](https://www.npmjs.com/package/@huitzo/dashboard-mcp) (an MCP server that exposes your dashboard's commands, primitives and brand tokens to an AI coding agent; see [Build with an AI agent](../../docs/en/claude-code-setup.md)).
 
 ## Run it for real
 

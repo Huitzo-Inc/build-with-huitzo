@@ -31,7 +31,7 @@ To see it in a browser:
 npm run dev         # http://localhost:3000
 ```
 
-There is no mock server to start, because this rung never calls a command. Everything on screen came from the context object — which is exactly the point.
+There is no mock server to start, because this rung never calls a command. Everything on screen came from the context object, which is exactly the point.
 
 ## What is inside
 
@@ -90,7 +90,7 @@ Four things to notice:
 const { user, theme, dashboardSlug } = useHubContext();
 ```
 
-No request was made. Hub passed all of it to `mount()`, because your dashboard shares Hub's session — the same JWT, the same user, the same tenant. You never build a login screen.
+No request was made. Hub passed all of it to `mount()`, because your dashboard shares Hub's session: the same JWT, the same user, the same tenant. You never build a login screen.
 
 `useHubContext` is also **reactive**. Flip the theme in Hub and `theme` changes and your component re-renders. It is not a snapshot taken at mount time.
 
