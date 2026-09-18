@@ -135,4 +135,4 @@ The `document_id` is the contract between the two commands: `seed-document` writ
 
 ## Next
 
-You now have a pack that reads a real document and decides when a human is needed. The next rung adds an outbound action behind an approval, so the pack does not just read and judge, it proposes something the founder can accept or reject.
+You now have a pack that reads a real document and decides when a human is needed. [Tier 1: `01b-macro-snapshot`](../01b-macro-snapshot) swaps the input: instead of reading from storage, the pack reaches out to a public API and grounds its summary in what comes back. Same deterministic-first shape, a new kind of external reach to declare in the Policy Card.

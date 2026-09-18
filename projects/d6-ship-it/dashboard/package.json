@@ -1,0 +1,32 @@
+{
+  "name": "ship-it",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Dashboard rung D6: validate, build, publish — and the preflight that catches what would otherwise fail after publishing.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "preflight": "npm run build && node scripts/preflight.mjs"
+  },
+  "dependencies": {
+    "@huitzo/dashboard-sdk": "^0.7.0",
+    "@huitzo/dashboard-sdk-react": "^6.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: f0ce7926852045e6c1d0f5da6fb1772db87641f05e64c81fa175302d5ab12932 -->
+<!-- i18n-source-sha: fb20676ce8323dfed8a0eb88bfd81ebfc971c2f8427a57611d2333bbe88b89ab -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 1: inbox-triage
@@ -128,4 +128,4 @@ huitzo run @your-org/inbox-triage/triage-email --args '{"subject": "¿Dónde est
 
 ## Siguiente
 
-El mismo patrón, más superficie. Cada nivel agrega una capacidad nueva (almacenamiento, archivos, una integración) sobre el núcleo de "primero lo determinista, el modelo para el juicio" que acabas de construir.
+[Nivel 1: `01d-daily-digest`](../01d-daily-digest) cierra este nivel: un CSV de ventas se convierte en un resumen más una señal de anomalía, y las mismas primitivas sirven para una tienda de un local y para un conglomerado. Cada nivel agrega una capacidad nueva (almacenamiento, archivos, una integración) sobre el núcleo de "primero lo determinista, el modelo para el juicio" que acabas de construir.

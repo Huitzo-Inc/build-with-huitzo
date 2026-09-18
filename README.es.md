@@ -1,9 +1,9 @@
-<!-- i18n-source-sha: 0cbc3cd3c042800313bded9d8e15e368f6e7f08cf421ba45a096c1dd435ee036 -->
+<!-- i18n-source-sha: 3b182d04950fb689d0111d482b1ee3578da9e95b7c8bafd0324cdde74848de3d -->
 <!-- Este archivo es una traducción revisada de README.md (la fuente en inglés). No lo edites a mano para corregir contenido: actualiza el inglés y vuelve a generar. Ver .translation/README.md. -->
 
 # build-with-huitzo
 
-**Aprende a construir sobre Huitzo creando Intelligence Packs reales, un peldaño a la vez.** Esta es la forma práctica, de copiar y pegar, para pasar de un "hola mundo" de cinco minutos a un despliegue gobernado y multiinquilino.
+**Aprende a construir sobre Huitzo creando cosas reales, un peldaño a la vez.** Esta es la forma práctica, de copiar y pegar, para pasar de un "hola mundo" de cinco minutos a un despliegue gobernado y multiinquilino, ya sea que construyas el Python que decide, el React que lo muestra, o ambos.
 
 [![tests](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/test-packs.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/test-packs.yml)
 [![regression-gate](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/regression-gate.yml/badge.svg)](https://github.com/Huitzo-Inc/build-with-huitzo/actions/workflows/regression-gate.yml)
@@ -17,41 +17,76 @@ Huitzo es el sistema operativo de IA para empresas reguladas. La unidad que cons
 
 > ⭐ **¿Primera vez? Lee primero [El momento "ajá"](./docs/es/the-aha-moment.md)** ([English](./docs/en/the-aha-moment.md)). Un pack gobernado, con el modelo cambiado de Claude a GPT‑4o modificando una sola línea de configuración — misma decisión, misma auditoría, misma Policy Card. Es la forma más rápida de *sentir por qué* construyes una solución regulada sobre Huitzo en lugar de cablear un SDK de LLM directamente.
 
-## Inicio rápido (unos cinco minutos)
+## Dos formas de entrar
+
+Ambas rutas corren enteramente en tu portátil, no necesitan cuenta ni clave de API,
+y terminan en el mismo lugar. Elige la que coincida con lo que construyes.
+
+| | **Construir un pack** (Python) | **Construir un dashboard** (React) |
+|---|---|---|
+| **Escribes** | La lógica determinista que toma la decisión | La interfaz que una persona realmente usa |
+| **Necesitas** | Python 3.11+ | Node 20+ |
+| **Empieza en** | [`00-hello-pack`](./projects/00-hello-pack), 5 min | [`d0-hello-dashboard`](./projects/d0-hello-dashboard), 10 min |
+| **Ruta completa** | [La escalera](#la-escalera), Nivel 0 → 6 | [La ruta de dashboards](#la-ruta-de-dashboards), D0 → Nivel 6 |
+
+¿No estás seguro? Empieza por el pack. Es la más corta de las dos, y es aquello a lo
+que un dashboard llama.
+
+### Inicio rápido: tu primer pack (unos cinco minutos)
+
+Python 3.11+ es lo único que necesitas.
 
 ```bash
-# 1. Instala la CLI de Huitzo (no necesitas cuenta) — macOS / Linux / WSL2
-curl -sSf https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.sh | sh
-```
-
-```powershell
-# 1. Instala la CLI de Huitzo (no necesitas cuenta) — Windows (PowerShell)
-iwr -useb https://raw.githubusercontent.com/Huitzo-Inc/huitzo-launcher/main/install.ps1 | iex
-```
-
-> macOS solo es compatible con Apple Silicon. Homebrew también funciona: `brew install Huitzo-Inc/tap/huitzo`.
-
-```bash
-# 2. Obtén los ejemplos y abre el primer pack
+# 1. Obtén los ejemplos y abre el primer pack
 git clone https://github.com/Huitzo-Inc/build-with-huitzo
 cd build-with-huitzo/projects/00-hello-pack/pack
 
-# 3. Crea un entorno virtual de Python 3.11+, instala el SDK y ejecuta las pruebas
-python3 -m venv .venv && source .venv/bin/activate   # macOS/Linux/WSL2 — requiere Python 3.11+
+# 2. Crea un entorno virtual, instala el SDK y ejecuta las pruebas
+python3 -m venv .venv && source .venv/bin/activate   # macOS/Linux/WSL2
 pip install -e ".[dev]"
 pytest                  # las pruebas sin conexión del pack (exactamente lo que corre CI)
 ```
 
 > Windows (PowerShell): `py -3 -m venv .venv`, luego `.venv\Scripts\Activate.ps1`, antes de `pip install -e ".[dev]"`.
 
-Eso ejecuta el pack completamente sin conexión. Para ejecutarlo de verdad contra tu Huitzo Hub cuando tengas acceso anticipado:
+Tres pruebas en verde significan que ya tienes un Intelligence Pack funcionando.
+Ahora lee [`00-hello-pack`](./projects/00-hello-pack) para ver qué acabas de
+ejecutar, y sigue la [ruta de aprendizaje](./docs/es/index.md).
+
+### Inicio rápido: tu primer dashboard (unos diez minutos)
+
+Node 20+ es lo único que necesitas: sin Python y sin pack.
 
 ```bash
-huitzo login
-huitzo run @your-org/hello-pack/hello --args '{"text": "Huitzo hace que la IA funcione donde viven tus datos."}'
+git clone https://github.com/Huitzo-Inc/build-with-huitzo
+cd build-with-huitzo/projects/d0-hello-dashboard/dashboard
+
+npm install
+npm test                # 5 pruebas: el contrato de montaje de Hub
+npm run dev             # http://localhost:3000
 ```
 
-> Los ejemplos usan la org `@reef`, que no es tuya. Antes de publicarlos o ejecutarlos en un Hub, vuelve a asignarlos a una org que sí poseas. Consulta [Ejecuta en tu propio Hub](#ejecuta-en-tu-propio-hub).
+Eso es un Dashboard de Huitzo real corriendo sin Hub alguno. Lee
+[`d0-hello-dashboard`](./projects/d0-hello-dashboard) para ver qué acaba de pasar.
+
+Todo en este repo corre sin conexión así. La CLI y una cuenta de Hub entran
+después, cuando quieras publicar. Ver [Ejecuta en tu propio Hub](#ejecuta-en-tu-propio-hub).
+
+## Constrúyelo con un agente de IA (opcional, cinco minutos)
+
+Si usas [Claude Code](https://code.claude.com/docs/en/overview), instala el
+entorno de desarrollo de Huitzo antes de escribir tu propio pack:
+
+```text
+/plugin marketplace add Huitzo-Inc/pack-claude-env
+/plugin install huitzo@huitzo
+/huitzo:huitzo-init
+```
+
+Le da a tu agente referencias verificadas del SDK, skills de flujo de trabajo
+docs-first, agentes revisores y un hook que detecta un nombre de modelo fijo antes
+de que lo subas. Instrucciones completas, los dos canales de instalación y una
+guía ilustrada: **[Construye con un agente de IA](./docs/es/claude-code-setup.md)**.
 
 ## La escalera
 
@@ -69,7 +104,29 @@ Cada peldaño se apoya en los anteriores, así que el proyecto más difícil es 
 | **Nivel 4** | [`04-first-dashboard`](./projects/04-first-dashboard) | Un dashboard de React que llama a un pack desde el navegador. | El frontend: una app del Dashboard SDK es un consumidor delgado de decisiones que el pack ya tomó. |
 | **Nivel 5** | [`05-pack-from-outside`](./projects/05-pack-from-outside) | Maneja un pack desplegado por REST, la CLI, MCP alojado y CI. | Un solo modelo mental, cuatro puertas: cómo interactuar con huitzo.ai desde cualquier lugar. |
 | **Nivel 6** | [`06-fullstack-triage`](./projects/06-fullstack-triage) | Un pack y un dashboard en un proyecto, probados de principio a fin en tu portátil. | Fullstack: la API de comandos es el único contrato entre Python y la interfaz. |
-| Nivel 7 | `07-sovereign-suite` | Un sistema gobernado, multiinquilino y desplegable en cualquier entorno para un conglomerado. | **Próximamente** ([issue de seguimiento](https://github.com/Huitzo-Inc/build-with-huitzo/issues)). |
+| Nivel 7 | `07-sovereign-suite` | Un sistema gobernado, multiinquilino y desplegable en cualquier entorno para un conglomerado. | **Próximamente.** Dale una estrella al repo para seguir el avance. |
+
+## La ruta de dashboards
+
+Si construyes interfaces, esta es tu ruta. Empieza con un dashboard en vez de un
+pack, y cada peldaño te entrega el pack al que llama, ya escrito y ya probado:
+**nunca tienes que escribir Python para terminar uno.**
+
+| Peldaño | Proyecto | Qué construirás | Qué demuestra |
+|---------|----------|-----------------|---------------|
+| **D0** | [`d0-hello-dashboard`](./projects/d0-hello-dashboard) | El módulo más pequeño que Hub puede montar. Sin pack, sin red. | El contrato `mount`/`unmount`: un dashboard es un módulo que Hub ejecuta, no un sitio web. |
+| **D1** | [`04-first-dashboard`](./projects/04-first-dashboard) | Un dashboard que llama a un comando real de un pack con `useCommand`, contra un Hub simulado. | El frontend es un consumidor delgado de decisiones que Python ya tomó. |
+| D2 | `d2-forms-and-input` | Formularios tipados desde una especificación declarativa de campos, con los errores de validación del pack en los campos correctos. | *En curso.* |
+| **D3** | [`d3-design-system`](./projects/d3-design-system) | La misma instantánea renderizada genérica y luego sobre tokens de marca, con las reglas de diseño verificadas por pruebas. | Un dashboard de Huitzo debería verse como Huitzo en el primer renderizado, no tras un rediseño. |
+| D4 | `d4-slow-commands` | Salida en streaming, la ruta de comandos encolados, avisos y migas de pan de Hub. | *En curso.* |
+| D5 | `d5-governed-ui` | La interfaz de una decisión retenida o escalada, con su registro de evidencia. | *En curso.* |
+| **D6** | [`d6-ship-it`](./projects/d6-ship-it) | Validar, construir, publicar, más un preflight sin conexión que detecta lo que de otro modo fallaría tras publicar. | Casi todo despliegue fallido es un error que podrías haber detectado en tu portátil. |
+
+**Peldaño final:** ambas rutas se encuentran en [`06-fullstack-triage`](./projects/06-fullstack-triage):
+un pack y un dashboard en un proyecto, acoplados solo por la API de comandos.
+
+> **¿Ya conoces los packs?** El Nivel 4 es D1. Las dos rutas son el mismo repositorio
+> visto desde dos direcciones.
 
 ## Soluciones de referencia reguladas
 
@@ -125,17 +182,25 @@ partner:
 ## Cómo mantenemos honestos estos ejemplos
 
 - **Cada pack se prueba en CI** contra el `huitzo-sdk` publicado, así un ejemplo roto rompe el build, no tu tarde.
+- **Una [comprobación semanal de deriva del SDK](./.github/workflows/sdk-drift.yml) reconstruye cada ejemplo contra los SDK *más recientes* publicados**, ignorando el lockfile. El CI de los pull requests es reproducible (instala lo que fija el lockfile), lo que significa que no puede detectar una nueva versión mayor del SDK publicada aguas arriba. Este trabajo sí puede, así que un ejemplo que deja de compilar es problema nuestro antes que tuyo.
 - **Una [puerta de regresión](./tests/README.md) protege cada clase de bug que hemos corregido.** Una prueba offline por cada bug de producción pasado (fiabilidad de enums, refs de pipeline, fallos de `process` en dashboards, formas de petición de los clientes, …) corre en cada cambio, así un bug corregido nunca puede volver en silencio. Ningún ejercicio se publica si no se mantiene en verde.
 - **El inglés es la única fuente de verdad; el español es una traducción revisada.** Una [verificación de obsolescencia](./.translation/README.md) impide que cualquier archivo en español quede desactualizado respecto a su fuente en inglés. Solo editas a mano el inglés.
 - **Los nombres ficticios son inventados.** Empresas como Nautilus Mutual y Leviathan Holdings son marcadores de posición. No aparece ningún cliente real.
 
 ## Qué necesitas
 
+**Para construir y probar cada ejercicio:**
+
 - Python 3.11+ y `pip`
 - Node 20+ y npm para los peldaños de dashboard (Niveles 4 y 6)
-- La [CLI de Huitzo](https://github.com/Huitzo-Inc/huitzo-launcher) (instalación de una línea arriba) — funciona de forma nativa en Windows, macOS (Apple Silicon), Linux y WSL2. El **runner** de Studio (no la CLI) necesita WSL2 en Windows.
-- El [`huitzo-sdk`](https://pypi.org/project/huitzo-sdk/) de PyPI (se instala por pack)
-- Acceso anticipado a un Huitzo Hub solo para ejecutar los peldaños posteriores contra un Hub real. Cada ejercicio se construye y se prueba localmente sin uno.
+- El [`huitzo-sdk`](https://pypi.org/project/huitzo-sdk/) de PyPI (se instala por pack, con el inicio rápido de arriba)
+
+**Solo cuando quieras publicar o ejecutar contra un Hub real:**
+
+- La [CLI de Huitzo](https://github.com/Huitzo-Inc/huitzo-launcher) ([comandos de instalación](./docs/es/claude-code-setup.md#aún-no-tienes-la-cli)). Funciona de forma nativa en Windows, macOS (Apple Silicon), Linux y WSL2. El **runner** de Studio (no la CLI) necesita WSL2 en Windows.
+- Acceso anticipado a un Huitzo Hub. Cada ejercicio se construye y se prueba localmente sin uno.
+
+**Opcional:** [Claude Code](https://code.claude.com/docs/en/overview) más el [entorno de desarrollo de Huitzo](./docs/es/claude-code-setup.md), si quieres un agente de IA que ya conozca el SDK.
 
 ## Cómo contribuir
 

@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: e519ad6bf6cad5b22eb83fe5ba96198de6e882e2557ddcfa277d3a62b1db83d2 -->
+<!-- i18n-source-sha: c9f41da181be89acd8e3a703f19408bb14b004584e8eb5b81627eb23b6e2ddfa -->
 <!-- Traducción revisada de README.md. No edites contenido aquí: actualiza el inglés y vuelve a generar. Ver ../../.translation/README.md. -->
 
 # Nivel 4: first-dashboard
@@ -16,7 +16,8 @@ La idea que hay que llevarse de aquí: **el dashboard es un consumidor delgado d
 ## Requisitos previos
 
 - Node 20+ y npm
-- Has visto el [Nivel 1: macro-snapshot](../01b-macro-snapshot); este dashboard consume su comando `country-snapshot`.
+- Cualquiera de las dos rutas de entrada: en la escalera de packs llegas desde el [Nivel 3](../03-claims-pipeline); en la [ruta de dashboards](../../docs/es/index.md#la-ruta-de-dashboards) este peldaño es **D1** y llegas desde [D0: `d0-hello-dashboard`](../d0-hello-dashboard), que cubre el contrato `mount`/`unmount` que este README da por sabido.
+- Útil pero no obligatorio: [`01b-macro-snapshot`](../01b-macro-snapshot), el pack al que llama este dashboard. No necesitas construirlo: el servidor simulado lo sustituye, y aquí nunca escribes Python.
 - No necesitas cuenta de Hub para construir, probar o ejecutar esto localmente. Un Hub con el pack desplegado solo hace falta para publicarlo de verdad.
 
 ## Ejecútalo
@@ -142,7 +143,11 @@ Apunta `apiUrl` al `mock-server.mjs` incluido, que responde la llamada al comand
 
 ## Qué está planificado (no se usa aquí)
 
-El SDK también exporta `useRealtime`, `useConnectionStatus`, `useHubBreadcrumbs` y `useHubActions`. Están documentados como planificados en el SDK actual y aún no funcionan, así que este dashboard no los usa. Se listan aquí solo para que sepas que vienen, no como APIs funcionales que usar. Lo mismo vale para el registro de componentes para copiar `@huitzo/dashboard-primitives` y `@huitzo/dashboard-mcp`.
+Este peldaño usa a propósito la porción más pequeña posible del SDK. Hay mucho más en la caja, y todo funciona hoy sobre el bus de eventos de Hub: `useRealtime`, `useHubActions`, `useHubBreadcrumbs`, `usePacks`, `useLocale`, `useStreamingCommand` (salida token a token), además de los componentes `Form`, `Dashboard`, `DashboardTile` y `TemplateFrame`. Este primer dashboard simplemente aún no los necesita.
+
+El único hook que *no* está implementado es `useConnectionStatus`: llamarlo lanza un error claro que te remite a `useRealtime()` (la capa WebSocket de eventos de pack que necesita está diferida a una versión futura del backend).
+
+Hay dos paquetes complementarios publicados y usables: [`@huitzo/dashboard-primitives`](https://www.npmjs.com/package/@huitzo/dashboard-primitives) (un registro de componentes `hz-*` para copiar, estilo shadcn, fijados por hash) y [`@huitzo/dashboard-mcp`](https://www.npmjs.com/package/@huitzo/dashboard-mcp) (un servidor MCP que expone los comandos, primitivas y tokens de marca de tu dashboard a un agente de IA; ver [Construye con un agente de IA](../../docs/es/claude-code-setup.md)).
 
 ## Ejecútalo de verdad
 

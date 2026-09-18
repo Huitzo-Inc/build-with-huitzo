@@ -3,6 +3,7 @@
 // mutation needs the promise to REJECT on failure so the table can revert its
 // optimistic update; the client call does exactly that.
 
+import { isCommandReceipt } from "@huitzo/dashboard-sdk";
 import { useCommand, useHuitzo } from "@huitzo/dashboard-sdk-react";
 
 import { ExpenseTable } from "./ExpenseTable";
@@ -38,6 +39,16 @@ export function ExpensePanel() {
       amount: expense.amount,
       memo: expense.memo,
     });
+    // execute() returns a union: a fast-queue command runs inline and returns its
+    // result (HTTP 200); a medium/long-queue command is handed to a worker and
+    // returns a receipt instead (HTTP 202). classify-expense is fast, so the
+    // receipt branch is a deployment misconfiguration, not a normal path.
+    if (isCommandReceipt(res)) {
+      throw new Error(
+        `classify-expense was queued (task ${res.task_id}). Poll client.tasks.get() for the result, ` +
+          "or move the command back to the fast queue.",
+      );
+    }
     return res.result.category;
   };
 

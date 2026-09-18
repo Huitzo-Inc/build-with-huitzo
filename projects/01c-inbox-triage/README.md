@@ -125,4 +125,4 @@ huitzo run @your-org/inbox-triage/triage-email --args '{"subject": "Where is my 
 
 ## Next
 
-Same pattern, more surface. Each tier adds one new capability, storage, files, an integration, on top of the deterministic-first, model-for-judgement core you just built.
+[Tier 1: `01d-daily-digest`](../01d-daily-digest) closes out this tier: a sales CSV becomes a summary plus one anomaly flag, and the same primitives serve a one-location shop and a conglomerate. Each tier adds one new capability, storage, files, an integration, on top of the deterministic-first, model-for-judgement core you just built.

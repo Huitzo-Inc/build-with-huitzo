@@ -1,0 +1,31 @@
+schema_version: 1
+
+# Everything Hub needs to register, display and version this dashboard. The
+# preflight in scripts/preflight.mjs checks the parts that would otherwise only
+# fail once you have already published.
+dashboard:
+  name: ship-it
+  namespace: reef
+  # Keep this in lockstep with package.json. Drift here is the classic
+  # "the version Hub shows is not the version I built" bug, so the preflight
+  # compares the two and fails if they disagree.
+  version: 0.1.0
+  description: "A governed recommendation, and the preflight that gets it published without surprises."
+  visibility: private
+  category: analytics
+  icon: "shield-check"
+
+# The packs this dashboard calls. Hub uses this to show "required packs" on the
+# Explore page and to check the tenant actually has them. The preflight
+# cross-checks it against every command id the source calls, because a command id
+# is just a string and nothing else would catch the mismatch.
+pack_dependencies:
+  - scope: "@reef"
+    name: grounded-reco
+    version: "*"
+    required: true
+
+build:
+  framework: react
+  entry_point: main.js
+  min_sdk_version: "6.0.0"

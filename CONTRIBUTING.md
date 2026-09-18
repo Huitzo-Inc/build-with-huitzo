@@ -14,7 +14,7 @@ Thanks for helping people learn Huitzo. New packs, fixes, and community template
 
 Most rungs are Intelligence Packs (a `pack/` directory). Two kinds are not, on purpose:
 
-- **Dashboards** (Tiers 4 and 6) are React/TypeScript apps in a `dashboard/` directory. They consume a pack via the Dashboard SDK and ship a `dist/main.js` that exports `mount`/`unmount`. They run and test locally with no Hub via a `dev.tsx` mock context.
+- **Dashboards** are React/TypeScript apps in a `dashboard/` directory: the `d*` rungs on the [dashboard path](./docs/en/index.md#the-dashboard-path), plus Tiers 4 and 6. They ship a `dist/main.js` that exports `mount`/`unmount`, and run and test locally with no Hub via a `dev.tsx` mock context. Most consume a pack via the Dashboard SDK; a few (D0, D3) deliberately consume none, so the rung stays on one idea.
 - **The outside-in rung** (Tier 5) is client code, not a pack: no `pack/` and no `huitzo.yaml`. It drives a deployed pack from REST, the CLI, MCP, and CI.
 
 The pack ground rules above still apply in spirit: deterministic-first, no model names in code, typed boundaries, offline tests.
@@ -31,11 +31,12 @@ cd projects/<rung>/pack
 pip install -e ".[dev]"
 pytest -q
 
-# A dashboard (Tiers 4, 6)
+# A dashboard (any d* rung, plus Tiers 4 and 6)
 cd projects/<rung>/dashboard
 npm install
 npm test          # offline component tests (jsdom)
 npm run build     # typechecks and bundles dist/main.js
+npm run preflight # where a rung defines one (D6): checks what publish would reject
 
 # The outside-in client rung (Tier 5)
 cd projects/05-pack-from-outside/python

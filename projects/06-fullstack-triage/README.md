@@ -83,6 +83,26 @@ const onApprove = async (id, approve) => {
 };
 ```
 
+### `execute()` returns a union, so narrow it
+
+`client.commands.execute()` does not always hand you a result. A **fast**-queue
+command runs inline and returns `CommandResult<T>` (HTTP 200). A **medium** or
+**long**-queue command is handed to a worker and returns a `CommandReceipt`
+(HTTP 202): a `task_id` to poll, *not* the output. The SDK makes that explicit in
+the type, so the compiler forces you to decide which you are dealing with:
+
+```tsx
+const res = await client.commands.execute<ClassifyResult>(CLASSIFY_EXPENSE, {...});
+if (isCommandReceipt(res)) {
+  throw new Error(`queued as ${res.task_id}; poll client.tasks.get() for the result`);
+}
+return res.result.category;   // narrowed to CommandResult<ClassifyResult>
+```
+
+`classify-expense` is a fast command, so the receipt branch means the deployment
+was misconfigured. Import the `isCommandReceipt` guard from `@huitzo/dashboard-sdk`
+(the core package), not from the React one.
+
 ## Optimistic updates, with revert
 
 When a user clicks Approve, the row should flip instantly, not wait for a round trip. `ExpenseTable` flips the status optimistically, then calls the command; if the command fails, it puts the old state back and shows the error:

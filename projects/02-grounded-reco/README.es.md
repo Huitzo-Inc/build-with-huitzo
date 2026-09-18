@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: 4d638209f1f9051775450456494c19fd1df96aea3f13cc5260e214ef93e4fbb7 -->
+<!-- i18n-source-sha: 0da8e578383959e435d11733bf3d17fafb6864fa2db39da421fc25c74e5fd420 -->
 
 # Nivel 2: grounded-reco
 
@@ -174,4 +174,4 @@ Cambia un `as_of` a una fecha bien en el pasado y ejecútalo de nuevo: la elecci
 
 ## Siguiente
 
-Ya tienes el patrón gobernado: decisión determinista, evaluación de guardia, auditoría, Policy Card. Los niveles superiores agregan almacenamiento, archivos y pipelines de varios pasos sobre exactamente esta columna vertebral.
+Ya tienes el patrón gobernado: decisión determinista, evaluación de guardia, auditoría, Policy Card. [Nivel 3: `03-claims-pipeline`](../03-claims-pipeline) compone tres comandos tipados en un solo pipeline gobernado, de modo que un flujo de trabajo es dato declarativo que el ejecutor verifica por tipos, no código de pegamento. Los niveles superiores agregan almacenamiento, archivos y pipelines de varios pasos sobre exactamente esta columna vertebral.

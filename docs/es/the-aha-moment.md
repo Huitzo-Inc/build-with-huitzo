@@ -165,7 +165,7 @@ cliente sobre Huitzo en lugar de cablear el SDK directamente.
 ## Pruébalo tú mismo
 
 1. Ejecuta [`02-grounded-reco`](../../projects/02-grounded-reco) contra tu propio
-   Hub (ver [Ejecutar en tu propio Hub](../../README.es.md#ejecutar-en-tu-propio-hub)).
+   Hub (ver [Ejecuta en tu propio Hub](../../README.es.md#ejecuta-en-tu-propio-hub)).
 2. Pide a tu operador del Hub que alterne `HUITZO_LLM_ROUTING_DEFAULT_MODEL` entre
    dos modelos que tu despliegue tenga configurados, y que reinicie.
 3. Vuelve a ejecutar el mismo comando. Observa cómo la decisión, la evaluación y

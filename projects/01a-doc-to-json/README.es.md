@@ -1,4 +1,4 @@
-<!-- i18n-source-sha: c7a4c090fd233a42e317f24ffa52b998f98d4fc9309766bf4c583e1f0ab8fc69 -->
+<!-- i18n-source-sha: 9e9004e484fd16e20ae87d37fe0e0782e4506ea4759a7ab536a8d2f9c819206c -->
 
 # Nivel 1: doc-to-json
 
@@ -137,4 +137,4 @@ El `document_id` es el contrato entre los dos comandos: `seed-document` escribe 
 
 ## Siguiente
 
-Ahora tienes un pack que lee un documento real y decide cuándo hace falta un humano. El siguiente peldaño agrega una acción de salida detrás de una aprobación, así el pack no solo lee y juzga, sino que propone algo que el fundador puede aceptar o rechazar.
+Ahora tienes un pack que lee un documento real y decide cuándo hace falta un humano. [Nivel 1: `01b-macro-snapshot`](../01b-macro-snapshot) cambia la entrada: en vez de leer del almacenamiento, el pack llama a una API pública y fundamenta su resumen en lo que recibe. La misma forma de "primero lo determinista", con un nuevo tipo de acceso externo que declarar en la Policy Card.

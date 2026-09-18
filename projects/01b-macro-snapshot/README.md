@@ -135,4 +135,6 @@ huitzo run @your-org/macro-snapshot/country-snapshot --args '{"country": "USA", 
 
 ## Next
 
-Tier 2 packs add storage and multi-step pipelines. Same pattern, more surface: deterministic logic first, the model only for the judgement call, every external reach declared in the Policy Card.
+[Tier 1: `01c-inbox-triage`](../01c-inbox-triage) is the next rung: deterministic rules own how urgent an email is, the model only drafts a reply, and the pack never sends it. Same pattern, more surface: deterministic logic first, the model only for the judgement call, every external reach declared in the Policy Card.
+
+> Building a dashboard? This is the pack [Tier 4: `04-first-dashboard`](../04-first-dashboard) puts a UI on. You can jump there now. It needs nothing from Tiers 2 or 3.
